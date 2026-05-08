@@ -60,8 +60,28 @@
   }
   .theme-toggle:hover { border-color: var(--accent); }
 
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex; gap: 0; border-bottom: 1px solid var(--border);
+    background: var(--surface); padding: 0 24px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .tab-btn {
+    padding: 12px 20px; font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: var(--muted); background: none; border: none; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
   /* ── MAIN ── */
   main { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
   /* ── FILTERS ── */
   .filter-panel {
@@ -100,6 +120,16 @@
   .btn-fetch:active { transform: scale(0.97); }
   .btn-fetch:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
+  .btn-monthly {
+    background: var(--surface2); color: var(--accent); border: 1px solid var(--accent);
+    padding: 9px 22px; border-radius: 6px; font-family: var(--mono);
+    font-weight: 600; font-size: 13px; cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s, background 0.2s; white-space: nowrap; align-self: flex-end;
+  }
+  .btn-monthly:hover { background: rgba(88,166,255,0.1); }
+  .btn-monthly:active { transform: scale(0.97); }
+  .btn-monthly:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
   /* ── PROGRESS ── */
   .progress-wrap { margin-top: 14px; display: none; }
   .progress-wrap.visible { display: block; }
@@ -112,12 +142,10 @@
     height: 100%; background: var(--accent); border-radius: 4px;
     transition: width 0.3s ease; width: 0%;
   }
-
-  /* ── STREAM STATUS PILL ── */
   .stream-status {
     margin-top: 10px; display: none;
     font-family: var(--mono); font-size: 11px;
-    color: var(--muted); display: none; align-items: center; gap: 8px;
+    color: var(--muted); align-items: center; gap: 8px;
   }
   .stream-status.visible { display: flex; }
   .pulse {
@@ -144,7 +172,7 @@
   .card-value.blue  { color: var(--accent); }
   .card-value.red   { color: var(--danger); }
 
-  /* ── TABLES ── */
+  /* ── TABLES (DAILY) ── */
   .tables-wrap { display: none; }
   .tables-wrap.visible { display: block; }
   .table-section { margin-bottom: 28px; }
@@ -155,7 +183,6 @@
     background: rgba(88,166,255,0.12); color: var(--accent); border: 1px solid rgba(88,166,255,0.2);
   }
   .table-sort-hint { margin-left: auto; font-size: 11px; color: var(--muted); font-family: var(--mono); }
-
   .table-scroll { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
   table { width: 100%; border-collapse: collapse; }
   thead { background: var(--surface2); }
@@ -170,7 +197,7 @@
   th.sorted .sort-arrow { opacity: 1; color: var(--accent); }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(125,133,144,0.1); }
+  tbody tr:hover { background: rgba(125,133,144,0.07); }
   td { padding: 10px 14px; font-size: 13px; white-space: nowrap; }
   td.school-name { white-space: normal; max-width: 260px; font-weight: 500; }
   td.num { font-family: var(--mono); text-align: right; }
@@ -188,16 +215,64 @@
   .status-error    { background: rgba(227,179,65,0.10); color: var(--warn);   border: 1px solid rgba(227,179,65,0.20); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
+  /* ── MONTHLY TABLES ── */
+  .monthly-tables-wrap { display: none; }
+  .monthly-tables-wrap.visible { display: block; }
+
+  /* Monthly day-cell heat coloring */
+  .pct-cell {
+    font-family: var(--mono); font-size: 12px; text-align: center;
+    padding: 8px 6px; min-width: 44px; position: relative;
+  }
+  .pct-cell .pct-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 2px 2px;
+    opacity: 0.18; transition: opacity 0.15s;
+  }
+  tbody tr:hover .pct-cell .pct-bar { opacity: 0.32; }
+  .pct-cell .pct-val { position: relative; z-index: 1; }
+  .pct-high  { color: var(--accent2); }
+  .pct-mid   { color: var(--warn); }
+  .pct-low   { color: var(--danger); }
+  .pct-zero  { color: var(--muted); }
+  .pct-unmarked { color: var(--muted); font-size: 11px; }
+
+  /* Monthly total column */
+  td.month-total {
+    font-family: var(--mono); font-weight: 600; font-size: 13px;
+    text-align: center; border-left: 1px solid var(--border);
+  }
+  th.month-total-th {
+    text-align: center; border-left: 1px solid var(--border); color: var(--accent);
+  }
+
+  /* Day header */
+  th.day-th { text-align: center; min-width: 44px; padding: 10px 6px; }
+
   /* ── STATES ── */
   .state-msg { text-align: center; padding: 60px 20px; color: var(--muted); font-family: var(--mono); font-size: 13px; display: none; }
   .state-msg.visible { display: block; }
   .state-msg .icon { font-size: 36px; margin-bottom: 12px; }
 
+  /* ── MONTHLY INFO BAR ── */
+  .monthly-info-bar {
+    display: none; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 18px; margin-bottom: 20px; font-family: var(--mono); font-size: 12px;
+  }
+  .monthly-info-bar.visible { display: flex; }
+  .info-chip {
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+  }
+  .info-chip strong { color: var(--text); }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+  }
+
   @media (max-width: 640px) {
     main { padding: 12px; }
     .filter-row { flex-direction: column; }
     .filter-group { min-width: 100%; }
-    .btn-fetch { width: 100%; justify-content: center; }
+    .btn-fetch, .btn-monthly { width: 100%; justify-content: center; }
   }
 </style>
 </head>
@@ -215,130 +290,267 @@
   </div>
 </header>
 
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" id="tabDaily" onclick="switchTab('daily')">📅 Daily</button>
+  <button class="tab-btn" id="tabMonthly" onclick="switchTab('monthly')">📆 Monthly</button>
+</div>
+
 <main>
 
-  <!-- FILTERS -->
-  <div class="filter-panel">
-    <div class="filter-label">📍 Select Location</div>
-    <div class="filter-row">
-      <div class="filter-group">
-        <label>District</label>
-        <select id="selDistrict" disabled><option value="">— Loading —</option></select>
-      </div>
-      <div class="filter-group">
-        <label>Wing</label>
-        <select id="selWing" disabled><option value="">— Select District —</option></select>
-      </div>
-      <div class="filter-group">
-        <label>Tehsil</label>
-        <select id="selTehsil" disabled><option value="">— Select Wing —</option></select>
-      </div>
-      <div class="filter-group">
-        <label>Markaz</label>
-        <select id="selMarkaz" disabled><option value="">— Select Tehsil —</option></select>
-      </div>
-      <button class="btn-fetch" id="btnFetch" disabled>Fetch Attendance</button>
-    </div>
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- DAILY TAB                                      -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="panelDaily">
 
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-text" id="progressText">Initialising…</div>
-      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
-    </div>
-    <div class="stream-status" id="streamStatus">
-      <div class="pulse"></div>
-      <span id="streamMsg">Waiting for data…</span>
-    </div>
-  </div>
-
-  <!-- SUMMARY CARDS -->
-  <div class="cards-grid" id="cardsGrid">
-    <div class="card" id="cardSchools">
-      <div class="card-icon">🏫</div>
-      <div class="card-label">Total Schools</div>
-      <div class="card-value blue" id="cSchools">—</div>
-    </div>
-    <div class="card" id="cardSPresent">
-      <div class="card-icon">🎓</div>
-      <div class="card-label">Students Present</div>
-      <div class="card-value green" id="cSPresent">—</div>
-      <div class="card-sub" id="cSAbsent">Absent: —</div>
-    </div>
-    <div class="card" id="cardSMarked">
-      <div class="card-icon">✅</div>
-      <div class="card-label">Students Marked</div>
-      <div class="card-value" id="cSMarked">—</div>
-      <div class="card-sub" id="cSUnmarked">Not marked: —</div>
-    </div>
-    <div class="card" id="cardTPresent">
-      <div class="card-icon">👨‍🏫</div>
-      <div class="card-label">Teachers Present</div>
-      <div class="card-value green" id="cTPresent">—</div>
-      <div class="card-sub" id="cTAbsent">Absent: —</div>
-    </div>
-    <div class="card" id="cardTMarked">
-      <div class="card-icon">📋</div>
-      <div class="card-label">Teachers Marked</div>
-      <div class="card-value" id="cTMarked">—</div>
-      <div class="card-sub" id="cTUnmarked">Not marked: —</div>
-    </div>
-  </div>
-
-  <!-- STATES -->
-  <div class="state-msg visible" id="emptyState">
-    <div class="icon">📊</div>
-    <div>Select a District, Wing, Tehsil and Markaz<br>then click <strong>Fetch Attendance</strong></div>
-  </div>
-  <div class="state-msg" id="errorState">
-    <div class="icon">⚠️</div>
-    <div id="errorMsg">Something went wrong.</div>
-  </div>
-
-  <!-- TABLES -->
-  <div class="tables-wrap" id="tablesWrap">
-    <div class="table-section">
-      <div class="table-header">
-        <span class="table-title">🎓 STUDENTS ATTENDANCE</span>
-        <span class="table-badge" id="sBadge">0 schools</span>
-        <span class="table-sort-hint">Click column header to sort</span>
+    <div class="filter-panel">
+      <div class="filter-label">📍 Select Location</div>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>District</label>
+          <select id="selDistrict" disabled><option value="">— Loading —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Wing</label>
+          <select id="selWing" disabled><option value="">— Select District —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Tehsil</label>
+          <select id="selTehsil" disabled><option value="">— Select Wing —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Markaz</label>
+          <select id="selMarkaz" disabled><option value="">— Select Tehsil —</option></select>
+        </div>
+        <button class="btn-fetch" id="btnFetch" disabled>Fetch Attendance</button>
       </div>
-      <div class="table-scroll">
-        <table id="studentsTable">
-          <thead><tr>
-            <th data-col="name"    data-table="s">School Name <span class="sort-arrow">↕</span></th>
-            <th data-col="level"   data-table="s">Level <span class="sort-arrow">↕</span></th>
-            <th data-col="gender"  data-table="s">Gender <span class="sort-arrow">↕</span></th>
-            <th data-col="present" data-table="s" style="text-align:right">Present <span class="sort-arrow">↕</span></th>
-            <th data-col="absent"  data-table="s" style="text-align:right">Absent <span class="sort-arrow">↕</span></th>
-            <th data-col="marked"  data-table="s" style="text-align:right">Total Marked <span class="sort-arrow">↕</span></th>
-            <th data-col="status"  data-table="s">Status <span class="sort-arrow">↕</span></th>
-          </tr></thead>
-          <tbody id="studentsTbody"></tbody>
-        </table>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-text" id="progressText">Initialising…</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+      </div>
+      <div class="stream-status" id="streamStatus">
+        <div class="pulse"></div>
+        <span id="streamMsg">Waiting for data…</span>
       </div>
     </div>
 
-    <div class="table-section">
-      <div class="table-header">
-        <span class="table-title">👨‍🏫 TEACHERS ATTENDANCE</span>
-        <span class="table-badge" id="tBadge">0 schools</span>
-        <span class="table-sort-hint">Click column header to sort</span>
+    <div class="cards-grid" id="cardsGrid">
+      <div class="card" id="cardSchools">
+        <div class="card-icon">🏫</div>
+        <div class="card-label">Total Schools</div>
+        <div class="card-value blue" id="cSchools">—</div>
       </div>
-      <div class="table-scroll">
-        <table id="teachersTable">
-          <thead><tr>
-            <th data-col="name"    data-table="t">School Name <span class="sort-arrow">↕</span></th>
-            <th data-col="level"   data-table="t">Level <span class="sort-arrow">↕</span></th>
-            <th data-col="gender"  data-table="t">Gender <span class="sort-arrow">↕</span></th>
-            <th data-col="present" data-table="t" style="text-align:right">Present <span class="sort-arrow">↕</span></th>
-            <th data-col="absent"  data-table="t" style="text-align:right">Absent <span class="sort-arrow">↕</span></th>
-            <th data-col="marked"  data-table="t" style="text-align:right">Total Marked <span class="sort-arrow">↕</span></th>
-            <th data-col="status"  data-table="t">Status <span class="sort-arrow">↕</span></th>
-          </tr></thead>
-          <tbody id="teachersTbody"></tbody>
-        </table>
+      <div class="card" id="cardSPresent">
+        <div class="card-icon">🎓</div>
+        <div class="card-label">Students Present</div>
+        <div class="card-value green" id="cSPresent">—</div>
+        <div class="card-sub" id="cSAbsent">Absent: —</div>
+      </div>
+      <div class="card" id="cardSMarked">
+        <div class="card-icon">✅</div>
+        <div class="card-label">Students Marked</div>
+        <div class="card-value" id="cSMarked">—</div>
+        <div class="card-sub" id="cSUnmarked">Not marked: —</div>
+      </div>
+      <div class="card" id="cardTPresent">
+        <div class="card-icon">👨‍🏫</div>
+        <div class="card-label">Teachers Present</div>
+        <div class="card-value green" id="cTPresent">—</div>
+        <div class="card-sub" id="cTAbsent">Absent: —</div>
+      </div>
+      <div class="card" id="cardTMarked">
+        <div class="card-icon">📋</div>
+        <div class="card-label">Teachers Marked</div>
+        <div class="card-value" id="cTMarked">—</div>
+        <div class="card-sub" id="cTUnmarked">Not marked: —</div>
       </div>
     </div>
-  </div>
+
+    <div class="state-msg visible" id="emptyState">
+      <div class="icon">📊</div>
+      <div>Select a District, Wing, Tehsil and Markaz<br>then click <strong>Fetch Attendance</strong></div>
+    </div>
+    <div class="state-msg" id="errorState">
+      <div class="icon">⚠️</div>
+      <div id="errorMsg">Something went wrong.</div>
+    </div>
+
+    <div class="tables-wrap" id="tablesWrap">
+      <div class="table-section">
+        <div class="table-header">
+          <span class="table-title">🎓 STUDENTS ATTENDANCE</span>
+          <span class="table-badge" id="sBadge">0 schools</span>
+          <span class="table-sort-hint">Click column header to sort</span>
+        </div>
+        <div class="table-scroll">
+          <table id="studentsTable">
+            <thead><tr>
+              <th data-col="name"    data-table="s">School Name <span class="sort-arrow">↕</span></th>
+              <th data-col="level"   data-table="s">Level <span class="sort-arrow">↕</span></th>
+              <th data-col="gender"  data-table="s">Gender <span class="sort-arrow">↕</span></th>
+              <th data-col="present" data-table="s" style="text-align:right">Present <span class="sort-arrow">↕</span></th>
+              <th data-col="absent"  data-table="s" style="text-align:right">Absent <span class="sort-arrow">↕</span></th>
+              <th data-col="marked"  data-table="s" style="text-align:right">Total Marked <span class="sort-arrow">↕</span></th>
+              <th data-col="status"  data-table="s">Status <span class="sort-arrow">↕</span></th>
+            </tr></thead>
+            <tbody id="studentsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-section">
+        <div class="table-header">
+          <span class="table-title">👨‍🏫 TEACHERS ATTENDANCE</span>
+          <span class="table-badge" id="tBadge">0 schools</span>
+          <span class="table-sort-hint">Click column header to sort</span>
+        </div>
+        <div class="table-scroll">
+          <table id="teachersTable">
+            <thead><tr>
+              <th data-col="name"    data-table="t">School Name <span class="sort-arrow">↕</span></th>
+              <th data-col="level"   data-table="t">Level <span class="sort-arrow">↕</span></th>
+              <th data-col="gender"  data-table="t">Gender <span class="sort-arrow">↕</span></th>
+              <th data-col="present" data-table="t" style="text-align:right">Present <span class="sort-arrow">↕</span></th>
+              <th data-col="absent"  data-table="t" style="text-align:right">Absent <span class="sort-arrow">↕</span></th>
+              <th data-col="marked"  data-table="t" style="text-align:right">Total Marked <span class="sort-arrow">↕</span></th>
+              <th data-col="status"  data-table="t">Status <span class="sort-arrow">↕</span></th>
+            </tr></thead>
+            <tbody id="teachersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panelDaily -->
+
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- MONTHLY TAB                                    -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="panelMonthly">
+
+    <div class="filter-panel">
+      <div class="filter-label">📍 Select Location — Monthly View</div>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>District</label>
+          <select id="mSelDistrict" disabled><option value="">— Loading —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Wing</label>
+          <select id="mSelWing" disabled><option value="">— Select District —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Tehsil</label>
+          <select id="mSelTehsil" disabled><option value="">— Select Wing —</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Markaz</label>
+          <select id="mSelMarkaz" disabled><option value="">— Select Tehsil —</option></select>
+        </div>
+        <button class="btn-monthly" id="btnFetchMonthly" disabled>Fetch Monthly</button>
+      </div>
+      <div class="progress-wrap" id="mProgressWrap">
+        <div class="progress-text" id="mProgressText">Initialising…</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="mProgressFill"></div></div>
+      </div>
+      <div class="stream-status" id="mStreamStatus">
+        <div class="pulse"></div>
+        <span id="mStreamMsg">Waiting for data…</span>
+      </div>
+    </div>
+
+    <!-- Monthly summary cards -->
+    <div class="cards-grid" id="mCardsGrid">
+      <div class="card" id="mCardSchools">
+        <div class="card-icon">🏫</div>
+        <div class="card-label">Total Schools</div>
+        <div class="card-value blue" id="mCSchools">—</div>
+      </div>
+      <div class="card" id="mCardDays">
+        <div class="card-icon">📅</div>
+        <div class="card-label">Working Days</div>
+        <div class="card-value blue" id="mCDays">—</div>
+        <div class="card-sub" id="mCDaySub">up to day —</div>
+      </div>
+      <div class="card" id="mCardSPresent">
+        <div class="card-icon">🎓</div>
+        <div class="card-label">Avg Student Att.</div>
+        <div class="card-value green" id="mCSPresent">—</div>
+        <div class="card-sub">month average %</div>
+      </div>
+      <div class="card" id="mCardTPresent">
+        <div class="card-icon">👨‍🏫</div>
+        <div class="card-label">Avg Teacher Att.</div>
+        <div class="card-value green" id="mCTPresent">—</div>
+        <div class="card-sub">month average %</div>
+      </div>
+      <div class="card" id="mCardUnmarked">
+        <div class="card-icon">⚠️</div>
+        <div class="card-label">Schools w/ Gaps</div>
+        <div class="card-value red" id="mCUnmarked">—</div>
+        <div class="card-sub">have unmarked days</div>
+      </div>
+    </div>
+
+    <!-- Info bar -->
+    <div class="monthly-info-bar" id="mInfoBar">
+      <div class="info-chip">📆 <strong id="mInfoMonth">—</strong></div>
+      <div class="info-chip">📊 <strong id="mInfoDays">—</strong> working days shown</div>
+      <div class="info-chip">
+        <span class="legend-dot" style="background:var(--accent2)"></span> ≥80% good
+      </div>
+      <div class="info-chip">
+        <span class="legend-dot" style="background:var(--warn)"></span> 50–79% average
+      </div>
+      <div class="info-chip">
+        <span class="legend-dot" style="background:var(--danger)"></span> &lt;50% low
+      </div>
+      <div class="info-chip">
+        <span class="legend-dot" style="background:var(--muted); opacity:0.5"></span> — unmarked
+      </div>
+    </div>
+
+    <div class="state-msg visible" id="mEmptyState">
+      <div class="icon">📆</div>
+      <div>Select a Markaz and click <strong>Fetch Monthly</strong><br>to view this month's attendance breakdown</div>
+    </div>
+    <div class="state-msg" id="mErrorState">
+      <div class="icon">⚠️</div>
+      <div id="mErrorMsg">Something went wrong.</div>
+    </div>
+
+    <div class="monthly-tables-wrap" id="mTablesWrap">
+      <!-- Students monthly table -->
+      <div class="table-section">
+        <div class="table-header">
+          <span class="table-title">🎓 STUDENTS — MONTHLY ATTENDANCE %</span>
+          <span class="table-badge" id="mSBadge">0 schools</span>
+        </div>
+        <div class="table-scroll">
+          <table id="mStudentsTable">
+            <thead><tr id="mStudentsHead"></tr></thead>
+            <tbody id="mStudentsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Teachers monthly table -->
+      <div class="table-section">
+        <div class="table-header">
+          <span class="table-title">👨‍🏫 TEACHERS — MONTHLY ATTENDANCE %</span>
+          <span class="table-badge" id="mTBadge">0 schools</span>
+        </div>
+        <div class="table-scroll">
+          <table id="mTeachersTable">
+            <thead><tr id="mTeachersHead"></tr></thead>
+            <tbody id="mTeachersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panelMonthly -->
 
 </main>
 
@@ -348,21 +560,28 @@
 // ════════════════════════════════════════════════════════════
 const CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFGaSeUAf7BVkqHbcQg91XXeZbrVi8rATTJ-jxmOC1taoFXYvFa5J-LL6-Q1KR-Pz5AMS7tG8Skn2h/pub?gid=2066596328&single=true&output=csv";
 const GAS_URL  = "https://script.google.com/macros/s/AKfycbyPZSApngm56qdfMq9pWdqKOsrt5wCPnm_8ovYZ5P2GYB24CA0Rj8ipo7luLyoRPZUU/exec";
-const POLL_MS  = 2000;  // poll every 2 seconds
-const POLL_MAX = 180;   // max polls (~6 min) before giving up
+const POLL_MS  = 2000;
+const POLL_MAX = 180;
+const MONTH    = "scma"; // always current month
 
-let pollTimer  = null;
-let pollCount  = 0;
-let isFetching = false;
+// ════════════════════════════════════════════════════════════
+//  TAB SWITCHING
+// ════════════════════════════════════════════════════════════
+function switchTab(tab) {
+  document.getElementById('panelDaily').classList.toggle('active', tab === 'daily');
+  document.getElementById('panelMonthly').classList.toggle('active', tab === 'monthly');
+  document.getElementById('tabDaily').classList.toggle('active', tab === 'daily');
+  document.getElementById('tabMonthly').classList.toggle('active', tab === 'monthly');
+}
 
-// ── Theme Toggle ────────────────────────────────────────────
+// ── Theme Toggle ─────────────────────────────────────────────
 document.getElementById('themeToggle').addEventListener('click', function() {
   document.body.classList.toggle('light-theme');
   this.innerHTML = document.body.classList.contains('light-theme') ? '🌙 Dark' : '☀️ Light';
 });
 
 // ════════════════════════════════════════════════════════════
-//  CSV PARSING & FILTER POPULATION (unchanged)
+//  CSV PARSING & FILTER POPULATION
 // ════════════════════════════════════════════════════════════
 let allRows = [];
 
@@ -392,6 +611,7 @@ function fillSelect(el, options, placeholder) {
   el.disabled = false;
 }
 
+// ── Wire up DAILY selects ────────────────────────────────────
 document.getElementById('selDistrict').addEventListener('change', function() {
   const d = this.value;
   const selW = document.getElementById('selWing');
@@ -401,11 +621,9 @@ document.getElementById('selDistrict').addEventListener('change', function() {
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetch').disabled = true;
   if (!d) { selW.innerHTML = '<option value="">— Select District —</option>'; selW.disabled = true; return; }
-  const wings = unique(allRows.filter(r => r['District'] === d).map(r => r['Wing']));
-  fillSelect(selW, wings, '— All Wings —');
+  fillSelect(selW, unique(allRows.filter(r => r['District'] === d).map(r => r['Wing'])), '— All Wings —');
   selW.dispatchEvent(new Event('change'));
 });
-
 document.getElementById('selWing').addEventListener('change', function() {
   const d = document.getElementById('selDistrict').value;
   const w = this.value;
@@ -414,10 +632,8 @@ document.getElementById('selWing').addEventListener('change', function() {
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetch').disabled = true;
   if (!d) return;
-  const filtered = allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w));
-  fillSelect(selT, unique(filtered.map(r => r['Tehsil'])), '— Select Tehsil —');
+  fillSelect(selT, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w)).map(r => r['Tehsil'])), '— Select Tehsil —');
 });
-
 document.getElementById('selTehsil').addEventListener('change', function() {
   const d = document.getElementById('selDistrict').value;
   const w = document.getElementById('selWing').value;
@@ -425,111 +641,103 @@ document.getElementById('selTehsil').addEventListener('change', function() {
   const selM = document.getElementById('selMarkaz');
   document.getElementById('btnFetch').disabled = true;
   if (!t) { selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true; return; }
-  const filtered = allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w) && r['Tehsil'] === t);
-  fillSelect(selM, unique(filtered.map(r => r['Markaz'])), '— Select Markaz —');
+  fillSelect(selM, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w) && r['Tehsil'] === t).map(r => r['Markaz'])), '— Select Markaz —');
 });
-
 document.getElementById('selMarkaz').addEventListener('change', function() {
   document.getElementById('btnFetch').disabled = !this.value;
 });
 
+// ── Wire up MONTHLY selects ──────────────────────────────────
+document.getElementById('mSelDistrict').addEventListener('change', function() {
+  const d = this.value;
+  const selW = document.getElementById('mSelWing');
+  const selT = document.getElementById('mSelTehsil');
+  const selM = document.getElementById('mSelMarkaz');
+  selT.innerHTML = '<option value="">— Select Wing —</option>'; selT.disabled = true;
+  selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
+  document.getElementById('btnFetchMonthly').disabled = true;
+  if (!d) { selW.innerHTML = '<option value="">— Select District —</option>'; selW.disabled = true; return; }
+  fillSelect(selW, unique(allRows.filter(r => r['District'] === d).map(r => r['Wing'])), '— All Wings —');
+  selW.dispatchEvent(new Event('change'));
+});
+document.getElementById('mSelWing').addEventListener('change', function() {
+  const d = document.getElementById('mSelDistrict').value;
+  const w = this.value;
+  const selT = document.getElementById('mSelTehsil');
+  const selM = document.getElementById('mSelMarkaz');
+  selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
+  document.getElementById('btnFetchMonthly').disabled = true;
+  if (!d) return;
+  fillSelect(selT, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w)).map(r => r['Tehsil'])), '— Select Tehsil —');
+});
+document.getElementById('mSelTehsil').addEventListener('change', function() {
+  const d = document.getElementById('mSelDistrict').value;
+  const w = document.getElementById('mSelWing').value;
+  const t = this.value;
+  const selM = document.getElementById('mSelMarkaz');
+  document.getElementById('btnFetchMonthly').disabled = true;
+  if (!t) { selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true; return; }
+  fillSelect(selM, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w) && r['Tehsil'] === t).map(r => r['Markaz'])), '— Select Markaz —');
+});
+document.getElementById('mSelMarkaz').addEventListener('change', function() {
+  document.getElementById('btnFetchMonthly').disabled = !this.value;
+});
+
 // ════════════════════════════════════════════════════════════
-//  FETCH + POLL LOGIC
+//  DAILY FETCH + POLL
 // ════════════════════════════════════════════════════════════
+let pollTimer = null, pollCount = 0, isFetching = false;
+let sortState = { s: { col: 'status', asc: true }, t: { col: 'status', asc: true } };
+let lastRows  = [];
+
 document.getElementById('btnFetch').addEventListener('click', startFetch);
 
 async function startFetch() {
   const markaz = document.getElementById('selMarkaz').value;
   if (!markaz) return;
-
   stopPolling();
   isFetching = true;
-  resetUI();
+  resetDailyUI();
   setFetchingUI(true);
   showProgress(0, 0, 'Sending fetch request to server…');
-
-  // ── Step 1: Trigger GAS to fetch from SIS ──
   try {
-    const triggerUrl = `${GAS_URL}?action=fetch&markaz=${encodeURIComponent(markaz)}`;
-    // Fire-and-forget with a short timeout — GAS will run in background
-    // We don't await completion; we'll poll for status
-    fetch(triggerUrl).catch(() => {}); // deliberate non-await
-  } catch (e) { /* ignore */ }
-
-  // Small delay before first poll to let GAS start writing
+    fetch(`${GAS_URL}?action=fetch&markaz=${encodeURIComponent(markaz)}`).catch(() => {});
+  } catch(e) {}
   await sleep(1500);
-
-  // ── Step 2: Begin polling for status ──
   pollCount = 0;
-  const markazForPoll = markaz;
-  pollTimer = setInterval(() => pollStatus(markazForPoll), POLL_MS);
+  pollTimer = setInterval(() => pollStatus(markaz), POLL_MS);
 }
 
 async function pollStatus(markaz) {
   pollCount++;
   if (pollCount > POLL_MAX) {
-    stopPolling();
-    setFetchingUI(false);
-    showError('Timed out waiting for data. The fetch may still be running — try again in a moment.');
-    return;
+    stopPolling(); setFetchingUI(false);
+    showDailyError('Timed out waiting for data.'); return;
   }
-
   try {
-    const url  = `${GAS_URL}?action=status&markaz=${encodeURIComponent(markaz)}`;
-    const resp = await fetch(url);
+    const resp = await fetch(`${GAS_URL}?action=status&markaz=${encodeURIComponent(markaz)}`);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
-
-    if (data.error) {
-      stopPolling();
-      setFetchingUI(false);
-      showError(data.error);
-      return;
-    }
-
-    const state   = data.state   || 'empty';
-    const rows    = data.rows    || [];
-    const fetched = data.fetched || 0;
-    const total   = data.total   || 0;
-
-    // Show progress bar based on server-reported progress
+    if (data.error) { stopPolling(); setFetchingUI(false); showDailyError(data.error); return; }
+    const state = data.state || 'empty', rows = data.rows || [];
+    const fetched = data.fetched || 0, total = data.total || 0;
     if (state === 'fetching') {
       const pct = total > 0 ? Math.round((fetched / total) * 100) : 0;
       showProgress(pct, fetched, `Server fetching: ${fetched} / ${total} schools…`);
       setStreamMsg(`Streaming partial data (${rows.length} rows received so far)…`);
     }
-
-    // Render whatever rows we have so far (partial render)
     if (rows.length > 0) {
       renderFromGAS(rows);
       if (data.todayDate) document.getElementById('headerDate').textContent = data.todayDate;
     }
-
-    // If locked, just wait — server says another request is writing
-    if (state === 'locked') {
-      setStreamMsg('Another user is fetching this Markaz. Waiting for their data…');
-      return;
-    }
-
+    if (state === 'locked') { setStreamMsg('Another user is fetching this Markaz. Waiting…'); return; }
     if (state === 'done') {
-      stopPolling();
-      setFetchingUI(false);
-      hideProgress();
-      hideStreamStatus();
-      if (rows.length === 0) {
-        showError('Fetch completed but no data was returned. Check your GAS logs.');
-      }
+      stopPolling(); setFetchingUI(false); hideProgress(); hideStreamStatus();
+      if (rows.length === 0) showDailyError('Fetch completed but no data returned.');
     }
-
-    if (state === 'error') {
-      stopPolling();
-      setFetchingUI(false);
-      showError(data.error || 'Unknown server error.');
-    }
-
+    if (state === 'error') { stopPolling(); setFetchingUI(false); showDailyError(data.error || 'Unknown error.'); }
   } catch(e) {
-    // Network hiccup — don't stop polling, just note it
-    setStreamMsg(`Poll attempt ${pollCount}… (last error: ${e.message})`);
+    setStreamMsg(`Poll attempt ${pollCount}… (${e.message})`);
   }
 }
 
@@ -538,206 +746,425 @@ function stopPolling() {
   isFetching = false;
 }
 
-// ════════════════════════════════════════════════════════════
-//  RENDER FROM GAS JSON
-//  GAS returns rows with: name, emis, level, gender,
-//  sPresent, sAbsent, sMarked, tPresent, tAbsent, tMarked,
-//  timestamp, status
-// ════════════════════════════════════════════════════════════
-let sortState = { s: { col: 'status', asc: true }, t: { col: 'status', asc: true } };
-let lastRows  = [];
-
+// ── Daily render ─────────────────────────────────────────────
 function renderFromGAS(rows) {
   lastRows = rows;
-  renderTables();
-  renderCards();
+  renderDailyTables();
+  renderDailyCards();
   document.getElementById('tablesWrap').classList.add('visible');
   document.getElementById('emptyState').classList.remove('visible');
-  document.querySelectorAll('.card').forEach(c => c.classList.add('visible'));
+  document.querySelectorAll('#cardsGrid .card').forEach(c => c.classList.add('visible'));
 }
 
 function gasRowToObj(r) {
   return {
-    name:    r.name    || '—',
-    emis:    r.emis    || '',
-    level:   r.level   || '—',
-    gender:  r.gender  || '—',
-    // Students
-    present: r.sPresent !== null && r.sPresent !== undefined ? r.sPresent : null,
-    absent:  r.sAbsent  !== null && r.sAbsent  !== undefined ? r.sAbsent  : null,
-    marked:  r.sMarked  !== null && r.sMarked  !== undefined ? r.sMarked  : null,
-    // Teachers (kept separate for teacher table)
-    tPresent: r.tPresent !== null && r.tPresent !== undefined ? r.tPresent : null,
-    tAbsent:  r.tAbsent  !== null && r.tAbsent  !== undefined ? r.tAbsent  : null,
-    tMarked:  r.tMarked  !== null && r.tMarked  !== undefined ? r.tMarked  : null,
+    name: r.name || '—', emis: r.emis || '', level: r.level || '—', gender: r.gender || '—',
+    present: r.sPresent ?? null, absent: r.sAbsent ?? null, marked: r.sMarked ?? null,
+    tPresent: r.tPresent ?? null, tAbsent: r.tAbsent ?? null, tMarked: r.tMarked ?? null,
     status:  r.status === 'ok' ? (r.sMarked > 0 ? 1 : 0) : -1,
     tStatus: r.status === 'ok' ? (r.tMarked > 0 ? 1 : 0) : -1,
-    error:   r.status !== 'ok',
+    error: r.status !== 'ok',
   };
 }
 
 function sortData(data, col, asc) {
-  const colMap = {
-    // For teacher table, map "present"→tPresent etc.
-    tpresent: 'tPresent', tabsent: 'tAbsent', tmarked: 'tMarked'
-  };
-  const realCol = colMap[col] || col;
   return [...data].sort((a, b) => {
-    let va = a[realCol], vb = b[realCol];
+    let va = a[col], vb = b[col];
     if (typeof va === 'string') va = va.toLowerCase();
     if (typeof vb === 'string') vb = vb.toLowerCase();
     if (va === null || va === undefined) va = -Infinity;
     if (vb === null || vb === undefined) vb = -Infinity;
-    if (va < vb) return asc ? -1 : 1;
-    if (va > vb) return asc ? 1 : -1;
-    return 0;
+    return va < vb ? (asc ? -1 : 1) : va > vb ? (asc ? 1 : -1) : 0;
   });
 }
 
 function statusPill(status, error) {
-  if (error || status === -1)
-    return `<span class="status-pill status-error"><span class="dot"></span>Error</span>`;
-  if (status === 1)
-    return `<span class="status-pill status-marked"><span class="dot"></span>Marked</span>`;
+  if (error || status === -1) return `<span class="status-pill status-error"><span class="dot"></span>Error</span>`;
+  if (status === 1) return `<span class="status-pill status-marked"><span class="dot"></span>Marked</span>`;
   return `<span class="status-pill status-unmarked"><span class="dot"></span>Not Marked</span>`;
 }
 
-function renderTableBody(tbodyId, objs, sortKey, tableKey) {
-  const tbody = document.getElementById(tbodyId);
-  const col   = sortState[tableKey].col;
-  const asc   = sortState[tableKey].asc;
+function renderTableBody(tbodyId, objs, tableKey) {
+  const tbody  = document.getElementById(tbodyId);
+  const col    = sortState[tableKey].col;
+  const asc    = sortState[tableKey].asc;
   const sorted = sortData(objs, col, asc);
-
-  // Update sort arrows
-  const table = tbody.closest('table');
+  const table  = tbody.closest('table');
   table.querySelectorAll('th').forEach(th => {
     th.classList.toggle('sorted', th.dataset.col === col);
     const arrow = th.querySelector('.sort-arrow');
     if (th.dataset.col === col) arrow.textContent = asc ? ' ↑' : ' ↓';
     else arrow.textContent = ' ↕';
   });
-
-  const isTeacher = tableKey === 't';
-
+  const isT = tableKey === 't';
   tbody.innerHTML = sorted.map(r => {
-    const pres   = isTeacher ? r.tPresent : r.present;
-    const abs    = isTeacher ? r.tAbsent  : r.absent;
-    const mar    = isTeacher ? r.tMarked  : r.marked;
-    const status = isTeacher ? r.tStatus  : r.status;
+    const pres = isT ? r.tPresent : r.present;
+    const abs  = isT ? r.tAbsent  : r.absent;
+    const mar  = isT ? r.tMarked  : r.marked;
+    const st   = isT ? r.tStatus  : r.status;
     return `<tr>
       <td class="school-name">${r.name}</td>
-      <td>${r.level}</td>
-      <td>${r.gender}</td>
-      <td class="num present">${pres !== null && pres !== undefined ? Number(pres).toLocaleString() : '—'}</td>
-      <td class="num absent">${abs  !== null && abs  !== undefined ? Number(abs).toLocaleString()  : '—'}</td>
-      <td class="num total">${mar   !== null && mar  !== undefined ? Number(mar).toLocaleString()  : '—'}</td>
-      <td>${statusPill(status, r.error)}</td>
+      <td>${r.level}</td><td>${r.gender}</td>
+      <td class="num present">${pres != null ? Number(pres).toLocaleString() : '—'}</td>
+      <td class="num absent">${abs != null ? Number(abs).toLocaleString() : '—'}</td>
+      <td class="num total">${mar != null ? Number(mar).toLocaleString() : '—'}</td>
+      <td>${statusPill(st, r.error)}</td>
     </tr>`;
   }).join('');
-
-  const badge = tbodyId === 'studentsTbody' ? 'sBadge' : 'tBadge';
-  document.getElementById(badge).textContent = `${sorted.length} school${sorted.length !== 1 ? 's' : ''}`;
+  document.getElementById(tbodyId === 'studentsTbody' ? 'sBadge' : 'tBadge').textContent =
+    `${sorted.length} school${sorted.length !== 1 ? 's' : ''}`;
 }
 
-function renderTables() {
+function renderDailyTables() {
   const objs = lastRows.map(gasRowToObj);
-  renderTableBody('studentsTbody', objs, 'status', 's');
-  renderTableBody('teachersTbody', objs, 'tStatus', 't');
+  renderTableBody('studentsTbody', objs, 's');
+  renderTableBody('teachersTbody', objs, 't');
 }
 
-// Sortable headers
 document.querySelectorAll('th[data-col]').forEach(th => {
   th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    const key = th.dataset.table;
+    const col = th.dataset.col, key = th.dataset.table;
     if (sortState[key].col === col) sortState[key].asc = !sortState[key].asc;
     else { sortState[key].col = col; sortState[key].asc = true; }
-    renderTables();
+    renderDailyTables();
   });
 });
 
-// ── Summary Cards ────────────────────────────────────────────
-function renderCards() {
-  let sPresent=0, sAbsent=0, sMarked=0, sUnmarked=0;
-  let tPresent=0, tAbsent=0, tMarked=0, tUnmarked=0;
-
+function renderDailyCards() {
+  let sP=0,sA=0,sM=0,sU=0,tP=0,tA=0,tM=0,tU=0;
   lastRows.forEach(r => {
-    if (r.status !== 'error' && r.status !== undefined) {
-      sPresent += r.sPresent || 0;
-      sAbsent  += r.sAbsent  || 0;
-      if ((r.sMarked || 0) > 0) sMarked++; else sUnmarked++;
-      tPresent += r.tPresent || 0;
-      tAbsent  += r.tAbsent  || 0;
-      if ((r.tMarked || 0) > 0) tMarked++; else tUnmarked++;
+    if (r.status !== 'error') {
+      sP += r.sPresent||0; sA += r.sAbsent||0;
+      if ((r.sMarked||0) > 0) sM++; else sU++;
+      tP += r.tPresent||0; tA += r.tAbsent||0;
+      if ((r.tMarked||0) > 0) tM++; else tU++;
     }
   });
-
   const n = lastRows.length;
   document.getElementById('cSchools').textContent  = n;
-  document.getElementById('cSPresent').textContent = sPresent.toLocaleString();
-  document.getElementById('cSAbsent').textContent  = `Absent: ${sAbsent.toLocaleString()}`;
-  const sPct = n ? Math.round(sMarked / n * 100) : 0;
-  document.getElementById('cSMarked').textContent  = `${sMarked} / ${n}`;
+  document.getElementById('cSPresent').textContent = sP.toLocaleString();
+  document.getElementById('cSAbsent').textContent  = `Absent: ${sA.toLocaleString()}`;
+  const sPct = n ? Math.round(sM/n*100) : 0;
+  document.getElementById('cSMarked').textContent  = `${sM} / ${n}`;
   document.getElementById('cSMarked').className    = `card-value ${sPct===100?'green':sPct>50?'blue':'red'}`;
-  document.getElementById('cSUnmarked').textContent= `Not marked: ${sUnmarked}`;
-
-  document.getElementById('cTPresent').textContent = tPresent.toLocaleString();
-  document.getElementById('cTAbsent').textContent  = `Absent: ${tAbsent.toLocaleString()}`;
-  const tPct = n ? Math.round(tMarked / n * 100) : 0;
-  document.getElementById('cTMarked').textContent  = `${tMarked} / ${n}`;
+  document.getElementById('cSUnmarked').textContent= `Not marked: ${sU}`;
+  document.getElementById('cTPresent').textContent = tP.toLocaleString();
+  document.getElementById('cTAbsent').textContent  = `Absent: ${tA.toLocaleString()}`;
+  const tPct = n ? Math.round(tM/n*100) : 0;
+  document.getElementById('cTMarked').textContent  = `${tM} / ${n}`;
   document.getElementById('cTMarked').className    = `card-value ${tPct===100?'green':tPct>50?'blue':'red'}`;
-  document.getElementById('cTUnmarked').textContent= `Not marked: ${tUnmarked}`;
+  document.getElementById('cTUnmarked').textContent= `Not marked: ${tU}`;
 }
 
 // ════════════════════════════════════════════════════════════
-//  UI HELPERS
+//  MONTHLY FETCH + POLL
 // ════════════════════════════════════════════════════════════
-function resetUI() {
+let mPollTimer = null, mPollCount = 0, mIsFetching = false;
+let mLastData  = null; // full response from statusMonthly
+
+document.getElementById('btnFetchMonthly').addEventListener('click', startMonthlyFetch);
+
+async function startMonthlyFetch() {
+  const markaz = document.getElementById('mSelMarkaz').value;
+  if (!markaz) return;
+  stopMonthlyPolling();
+  mIsFetching = true;
+  resetMonthlyUI();
+  setMonthlyFetchingUI(true);
+  showMProgress(0, 0, 'Sending monthly fetch request to server…');
+  try {
+    fetch(`${GAS_URL}?action=fetchMonthly&markaz=${encodeURIComponent(markaz)}&month=${MONTH}`).catch(() => {});
+  } catch(e) {}
+  await sleep(1500);
+  mPollCount = 0;
+  mPollTimer = setInterval(() => pollMonthlyStatus(markaz), POLL_MS);
+}
+
+async function pollMonthlyStatus(markaz) {
+  mPollCount++;
+  if (mPollCount > POLL_MAX) {
+    stopMonthlyPolling(); setMonthlyFetchingUI(false);
+    showMonthlyError('Timed out waiting for monthly data.'); return;
+  }
+  try {
+    const resp = await fetch(`${GAS_URL}?action=statusMonthly&markaz=${encodeURIComponent(markaz)}&month=${MONTH}`);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    if (data.error) { stopMonthlyPolling(); setMonthlyFetchingUI(false); showMonthlyError(data.error); return; }
+    const state   = data.state   || 'empty';
+    const rows    = data.rows    || [];
+    const fetched = data.fetched || 0;
+    const total   = data.total   || 0;
+    if (state === 'fetching') {
+      const pct = total > 0 ? Math.round((fetched / total) * 100) : 0;
+      showMProgress(pct, fetched, `Fetching: ${fetched} / ${total} schools…`);
+      setMStreamMsg(`Receiving monthly data…`);
+    }
+    if (rows.length > 0) {
+      mLastData = data;
+      renderMonthlyData(data);
+    }
+    if (state === 'locked') { setMStreamMsg('Another request is fetching this Markaz. Waiting…'); return; }
+    if (state === 'done') {
+      stopMonthlyPolling(); setMonthlyFetchingUI(false); hideMProgress(); hideMStreamStatus();
+      if (rows.length === 0) showMonthlyError('Fetch completed but no data returned.');
+    }
+    if (state === 'error') { stopMonthlyPolling(); setMonthlyFetchingUI(false); showMonthlyError(data.error || 'Unknown error.'); }
+  } catch(e) {
+    setMStreamMsg(`Poll attempt ${mPollCount}… (${e.message})`);
+  }
+}
+
+function stopMonthlyPolling() {
+  if (mPollTimer) { clearInterval(mPollTimer); mPollTimer = null; }
+  mIsFetching = false;
+}
+
+// ════════════════════════════════════════════════════════════
+//  MONTHLY RENDER
+// ════════════════════════════════════════════════════════════
+function renderMonthlyData(data) {
+  const rows     = data.rows    || [];
+  const weekends = data.weekends || {};
+  const holidays = new Set((data.holidayDates || []).map(String));
+  const day      = data.day;
+
+  if (!rows.length) return;
+
+  // Collect all categories that appear across all schools (union), sorted
+  // Only include days up to current `day`
+  const catSet = new Set();
+  rows.forEach(r => {
+    const sd = r.studentData;
+    if (sd && sd.categories) sd.categories.forEach(c => { if (c <= day) catSet.add(c); });
+  });
+  const categories = [...catSet].sort((a,b) => a - b);
+
+  // Build header row
+  const baseHeaders = `
+    <th style="min-width:220px">School</th>
+    <th>Level</th>
+    <th>Gender</th>
+  `;
+  const dayHeaders = categories.map(d =>
+    `<th class="day-th">${d}</th>`
+  ).join('');
+  const headHTML = baseHeaders + dayHeaders + `<th class="month-total-th">Avg%</th>`;
+
+  document.getElementById('mStudentsHead').innerHTML = headHTML;
+  document.getElementById('mTeachersHead').innerHTML = headHTML;
+
+  // Build table bodies
+  document.getElementById('mStudentsTbody').innerHTML = rows.map(r =>
+    buildMonthlyRow(r, 'studentData', categories)
+  ).join('');
+  document.getElementById('mTeachersTbody').innerHTML = rows.map(r =>
+    buildMonthlyRow(r, 'teacherData', categories)
+  ).join('');
+
+  // Badges
+  document.getElementById('mSBadge').textContent = `${rows.length} school${rows.length !== 1 ? 's' : ''}`;
+  document.getElementById('mTBadge').textContent = `${rows.length} school${rows.length !== 1 ? 's' : ''}`;
+
+  // Info bar
+  document.getElementById('mInfoMonth').textContent = MONTH.toUpperCase();
+  document.getElementById('mInfoDays').textContent  = categories.length;
+  document.getElementById('mInfoBar').classList.add('visible');
+
+  // Summary cards
+  renderMonthlyCards(rows, categories, day);
+
+  document.getElementById('mTablesWrap').classList.add('visible');
+  document.getElementById('mEmptyState').classList.remove('visible');
+  document.querySelectorAll('#mCardsGrid .card').forEach(c => c.classList.add('visible'));
+}
+
+function buildMonthlyRow(rowData, dataKey, categories) {
+  const d  = rowData[dataKey]; // studentData or teacherData
+  const ok = d && !d.error && Array.isArray(d.categories);
+
+  // Build a lookup: day number → index in the arrays
+  const catIdx = {};
+  if (ok) d.categories.forEach((c, i) => catIdx[c] = i);
+
+  const dayCells = categories.map(day => {
+    if (!ok) return `<td class="pct-cell pct-zero"><span class="pct-val">—</span></td>`;
+
+    const idx = catIdx[day];
+    if (idx === undefined) return `<td class="pct-cell pct-zero"><span class="pct-val">—</span></td>`;
+
+    const present  = d.present[idx]  || 0;
+    const absent   = d.absent[idx]   || 0;
+    const unmarked = d.unmarked[idx] || 0;
+    const marked   = present + absent;
+    const total    = marked + unmarked;
+
+    // Unmarked day — attendance not taken
+    if (unmarked > 0 && marked === 0) {
+      return `<td class="pct-cell pct-unmarked"><span class="pct-val">—</span></td>`;
+    }
+
+    if (marked === 0) return `<td class="pct-cell pct-zero"><span class="pct-val">0%</span></td>`;
+
+    const pct   = Math.round((present / marked) * 100);
+    const cls   = pct >= 80 ? 'pct-high' : pct >= 50 ? 'pct-mid' : 'pct-low';
+    const color = pct >= 80 ? 'var(--accent2)' : pct >= 50 ? 'var(--warn)' : 'var(--danger)';
+
+    return `<td class="pct-cell ${cls}">
+      <span class="pct-val">${pct}%</span>
+      <div class="pct-bar" style="height:${Math.max(2, Math.round(pct * 0.3))}px;background:${color}"></div>
+    </td>`;
+  }).join('');
+
+  // Average % across all marked days for this school
+  let totalPct = 0, countedDays = 0;
+  if (ok) {
+    categories.forEach(day => {
+      const idx = catIdx[day];
+      if (idx === undefined) return;
+      const present  = d.present[idx]  || 0;
+      const absent   = d.absent[idx]   || 0;
+      const unmarked = d.unmarked[idx] || 0;
+      const marked   = present + absent;
+      if (marked === 0) return; // skip fully unmarked days
+      totalPct += (present / marked) * 100;
+      countedDays++;
+    });
+  }
+  const avgPct  = countedDays > 0 ? Math.round(totalPct / countedDays) : null;
+  const avgCls  = avgPct === null ? 'pct-zero' : avgPct >= 80 ? 'pct-high' : avgPct >= 50 ? 'pct-mid' : 'pct-low';
+  const avgCell = `<td class="month-total ${avgCls}">${avgPct !== null ? avgPct + '%' : '—'}</td>`;
+
+  return `<tr>
+    <td class="school-name">${rowData.name || '—'}</td>
+    <td>${rowData.level || '—'}</td>
+    <td>${rowData.gender || '—'}</td>
+    ${dayCells}
+    ${avgCell}
+  </tr>`;
+}
+
+function renderMonthlyCards(rows, categories, day) {
+  const n = rows.length;
+  document.getElementById('mCSchools').textContent = n;
+  document.getElementById('mCDays').textContent    = categories.length;
+  document.getElementById('mCDaySub').textContent  = `up to day ${day}`;
+
+  // Avg student attendance % across all schools and all marked days
+  let sTotalPct = 0, sCount = 0;
+  let tTotalPct = 0, tCount = 0;
+  let schoolsWithGaps = 0;
+
+  rows.forEach(r => {
+    const sd = r.studentData;
+    const td = r.teacherData;
+    const catIdx = {};
+    if (sd && sd.categories) sd.categories.forEach((c, i) => catIdx[c] = i);
+
+    let sHasUnmarked = false;
+    categories.forEach(day => {
+      const idx = catIdx[day];
+      if (idx === undefined) return;
+      if (sd) {
+        const p = sd.present[idx] || 0, a = sd.absent[idx] || 0, u = sd.unmarked[idx] || 0;
+        const m = p + a;
+        if (u > 0 && m === 0) sHasUnmarked = true;
+        else if (m > 0) { sTotalPct += (p / m) * 100; sCount++; }
+      }
+      if (td) {
+        const p = td.present[idx] || 0, a = td.absent[idx] || 0, u = td.unmarked[idx] || 0;
+        const m = p + a;
+        if (m > 0) { tTotalPct += (p / m) * 100; tCount++; }
+      }
+    });
+    if (sHasUnmarked) schoolsWithGaps++;
+  });
+
+  const sAvg = sCount > 0 ? Math.round(sTotalPct / sCount) : null;
+  const tAvg = tCount > 0 ? Math.round(tTotalPct / tCount) : null;
+
+  const sEl = document.getElementById('mCSPresent');
+  sEl.textContent = sAvg !== null ? sAvg + '%' : '—';
+  sEl.className   = `card-value ${sAvg === null ? '' : sAvg >= 80 ? 'green' : sAvg >= 50 ? 'blue' : 'red'}`;
+
+  const tEl = document.getElementById('mCTPresent');
+  tEl.textContent = tAvg !== null ? tAvg + '%' : '—';
+  tEl.className   = `card-value ${tAvg === null ? '' : tAvg >= 80 ? 'green' : tAvg >= 50 ? 'blue' : 'red'}`;
+
+  const gEl = document.getElementById('mCUnmarked');
+  gEl.textContent = schoolsWithGaps;
+  gEl.className   = `card-value ${schoolsWithGaps === 0 ? 'green' : 'red'}`;
+}
+
+// ════════════════════════════════════════════════════════════
+//  UI HELPERS — DAILY
+// ════════════════════════════════════════════════════════════
+function resetDailyUI() {
   document.getElementById('emptyState').classList.remove('visible');
   document.getElementById('errorState').classList.remove('visible');
   document.getElementById('tablesWrap').classList.remove('visible');
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('visible'));
+  document.querySelectorAll('#cardsGrid .card').forEach(c => c.classList.remove('visible'));
   lastRows = [];
 }
-
 function setFetchingUI(on) {
-  document.getElementById('btnFetch').disabled = on;
-  document.getElementById('selMarkaz').disabled = on;
+  document.getElementById('btnFetch').disabled    = on;
+  document.getElementById('selMarkaz').disabled   = on;
 }
-
 function showProgress(pct, fetched, msg) {
-  const pw = document.getElementById('progressWrap');
-  pw.classList.add('visible');
+  document.getElementById('progressWrap').classList.add('visible');
   document.getElementById('progressText').textContent = msg;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('streamStatus').classList.add('visible');
 }
-
-function hideProgress() {
-  document.getElementById('progressWrap').classList.remove('visible');
-}
-
-function hideStreamStatus() {
-  document.getElementById('streamStatus').classList.remove('visible');
-}
-
-function setStreamMsg(msg) {
+function hideProgress()      { document.getElementById('progressWrap').classList.remove('visible'); }
+function hideStreamStatus()  { document.getElementById('streamStatus').classList.remove('visible'); }
+function setStreamMsg(msg)   {
   document.getElementById('streamMsg').textContent = msg;
   document.getElementById('streamStatus').classList.add('visible');
 }
-
-function showError(msg) {
+function showDailyError(msg) {
   document.getElementById('errorMsg').textContent = msg;
   document.getElementById('errorState').classList.add('visible');
   document.getElementById('emptyState').classList.remove('visible');
-  hideProgress();
-  hideStreamStatus();
+  hideProgress(); hideStreamStatus();
+}
+
+// ── UI HELPERS — MONTHLY ─────────────────────────────────────
+function resetMonthlyUI() {
+  document.getElementById('mEmptyState').classList.remove('visible');
+  document.getElementById('mErrorState').classList.remove('visible');
+  document.getElementById('mTablesWrap').classList.remove('visible');
+  document.getElementById('mInfoBar').classList.remove('visible');
+  document.querySelectorAll('#mCardsGrid .card').forEach(c => c.classList.remove('visible'));
+  mLastData = null;
+}
+function setMonthlyFetchingUI(on) {
+  document.getElementById('btnFetchMonthly').disabled = on;
+  document.getElementById('mSelMarkaz').disabled      = on;
+}
+function showMProgress(pct, fetched, msg) {
+  document.getElementById('mProgressWrap').classList.add('visible');
+  document.getElementById('mProgressText').textContent = msg;
+  document.getElementById('mProgressFill').style.width = pct + '%';
+  document.getElementById('mStreamStatus').classList.add('visible');
+}
+function hideMProgress()     { document.getElementById('mProgressWrap').classList.remove('visible'); }
+function hideMStreamStatus() { document.getElementById('mStreamStatus').classList.remove('visible'); }
+function setMStreamMsg(msg)  {
+  document.getElementById('mStreamMsg').textContent = msg;
+  document.getElementById('mStreamStatus').classList.add('visible');
+}
+function showMonthlyError(msg) {
+  document.getElementById('mErrorMsg').textContent = msg;
+  document.getElementById('mErrorState').classList.add('visible');
+  document.getElementById('mEmptyState').classList.remove('visible');
+  hideMProgress(); hideMStreamStatus();
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // ════════════════════════════════════════════════════════════
-//  INIT: Load CSV for school list
+//  INIT
 // ════════════════════════════════════════════════════════════
 (async function init() {
   try {
@@ -745,9 +1172,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     const text = await resp.text();
     allRows    = parseCSV(text);
     const districts = unique(allRows.map(r => r['District']));
-    fillSelect(document.getElementById('selDistrict'), districts, '— Select District —');
-  } catch (e) {
-    showError('Failed to load school list from Google Sheets. Check CSV URL or network.');
+    fillSelect(document.getElementById('selDistrict'),  districts, '— Select District —');
+    fillSelect(document.getElementById('mSelDistrict'), districts, '— Select District —');
+  } catch(e) {
+    showDailyError('Failed to load school list. Check CSV URL or network.');
+    showMonthlyError('Failed to load school list. Check CSV URL or network.');
   }
 })();
 </script>
