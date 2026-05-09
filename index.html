@@ -542,9 +542,10 @@ async function verifyPassword() {
   btn.textContent = 'Checking…';
   document.getElementById('pwdErr').classList.remove('visible');
   try {
-    const resp = await fetch(`${GAS_URL}?action=verifyPassword&password=${encodeURIComponent(pwd)}`);
+    // Added cache-buster here as well
+    const resp = await fetch(`${GAS_URL}?action=verifyPassword&password=${encodeURIComponent(pwd)}&t=${Date.now()}`);
     const data = await resp.json();
-    if (data.ok) {
+   if (data.ok) {
       isAdminLoggedIn = true;
       closePwdModal();
       document.getElementById('adminBtn').textContent = '🔓 Admin';
@@ -561,7 +562,6 @@ async function verifyPassword() {
     btn.textContent = 'Unlock Admin Panel';
   }
 }
-
 // ════════════════════════════════════════════════════════════
 //  CALENDAR STATE
 // ════════════════════════════════════════════════════════════
@@ -669,6 +669,7 @@ function toggleCalDay(e) {
   else el.classList.add('cal-workday');
 }
 
+// Convert from GET to POST for data integrity
 async function saveCalConfig() {
   const weekends = Object.entries(calDayStates).filter(([,v]) => v === 1).map(([k]) => parseInt(k));
   const holidays = Object.entries(calDayStates).filter(([,v]) => v === 2).map(([k]) => parseInt(k));
@@ -681,16 +682,25 @@ async function saveCalConfig() {
   msg.className   = 'cal-save-msg';
 
   try {
-    const url = `${GAS_URL}?action=saveConfig&month=${encodeURIComponent(mKey)}&weekends=${encodeURIComponent(JSON.stringify(weekends))}&holidays=${encodeURIComponent(JSON.stringify(holidays))}`;
-    const resp = await fetch(url);
+    // Construct payload for POST
+    const payload = {
+      action: 'saveConfig',
+      month: mKey,
+      weekends: JSON.stringify(weekends),
+      holidays: JSON.stringify(holidays)
+    };
+    
+    const resp = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    
     const data = await resp.json();
     if (data.saved) {
-      // Update local cache
       adminConfig = { found: true, weekends, holidays, updatedAt: new Date().toISOString() };
       adminConfigLoaded = true;
       msg.className  = 'cal-save-msg ok';
       msg.textContent = `✓ Saved successfully! ${weekends.length} weekend day(s), ${holidays.length} holiday(s) configured.`;
-      // Re-evaluate monthly access now that config is saved
       setTimeout(() => { closeCalModal(); evaluateMonthlyAccess(); }, 1800);
     } else {
       msg.className  = 'cal-save-msg err';
@@ -704,20 +714,20 @@ async function saveCalConfig() {
     btn.textContent = '💾 Save Configuration';
   }
 }
-
 // ════════════════════════════════════════════════════════════
 //  LOAD ADMIN CONFIG ON STARTUP
 // ════════════════════════════════════════════════════════════
+// Add a cache-buster to prevent cross-device stale data
 async function loadAdminConfig() {
   try {
     const mKey = currentMonthKey();
-    const resp = await fetch(`${GAS_URL}?action=getConfig&month=${encodeURIComponent(mKey)}`);
+    // Added &t=${Date.now()} to bypass browser caching completely
+    const resp = await fetch(`${GAS_URL}?action=getConfig&month=${encodeURIComponent(mKey)}&t=${Date.now()}`);
     const data = await resp.json();
-    adminConfig      = data;
+    adminConfig       = data;
     adminConfigLoaded = true;
   } catch(e) {
-    // If GAS unreachable, treat as not found (graceful fallback)
-    adminConfig      = { found: false };
+    adminConfig       = { found: false };
     adminConfigLoaded = true;
   }
 }
