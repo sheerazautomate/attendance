@@ -2,146 +2,91 @@
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="favicon.png">
-   <!-- Open Graph Meta Tags (WhatsApp, Facebook, LinkedIn) -->
   <meta property="og:title" content="SIS Punjab Attendance Dashboard">
   <meta property="og:description" content="SIS Attendance monitoring dashboard for Punjab schools with real-time daily and monthly insights.">
   <meta property="og:image" content="https://sheerazautomate.github.io/attendance/preview-image.png">
   <meta property="og:url" content="https://sheerazautomate.github.io/attendance/">
   <meta property="og:type" content="website">
-  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SIS Punjab Attendance Dashboard">
   <meta name="twitter:description" content="SIS Attendance monitoring dashboard for Punjab schools with real-time daily and monthly insights.">
   <meta name="twitter:image" content="https://sheerazautomate.github.io/attendance/preview-image.png">
-  
-  <!-- General Meta Tags -->
   <meta name="description" content="SIS Attendance monitoring dashboard for Punjab schools with real-time daily and monthly insights.">
   <meta name="theme-color" content="#0d6efd">
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SIS Attendance Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIS Attendance Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #1c2330;
-    --border: #30363d;
-    --accent: #58a6ff;
-    --accent2: #3fb950;
-    --danger: #f85149;
-    --warn: #e3b341;
-    --text: #e6edf3;
-    --muted: #7d8590;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2330; --border: #30363d;
+    --accent: #58a6ff; --accent2: #3fb950; --danger: #f85149; --warn: #e3b341;
+    --text: #e6edf3; --muted: #7d8590;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   }
   body.light-theme {
-    --bg: #f6f8fa; --surface: #ffffff; --surface2: #f3f4f6;
-    --border: #d0d7de; --accent: #0969da; --accent2: #1a7f37;
-    --danger: #cf222e; --warn: #9a6700; --text: #1f2328; --muted: #656d76;
+    --bg: #f6f8fa; --surface: #ffffff; --surface2: #f3f4f6; --border: #d0d7de;
+    --accent: #0969da; --accent2: #1a7f37; --danger: #cf222e; --warn: #9a6700;
+    --text: #1f2328; --muted: #656d76;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg); color: var(--text); font-family: var(--sans);
-    min-height: 100vh; font-size: 14px; transition: background-color 0.3s, color 0.3s;
-  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; font-size: 14px; transition: background-color 0.3s, color 0.3s; }
 
   /* ── HEADER ── */
-  header {
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    padding: 16px 24px; display: flex; align-items: center; gap: 16px;
-    position: sticky; top: 0; z-index: 100;
-    transition: background-color 0.3s, border-color 0.3s;
-  }
-  .logo-mark {
-    width: 36px; height: 36px; background: var(--accent); border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-weight: 600; font-size: 14px;
-    color: #ffffff; flex-shrink: 0;
-  }
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; transition: background-color 0.3s, border-color 0.3s; }
+  .logo-mark { width: 36px; height: 36px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 600; font-size: 14px; color: #ffffff; flex-shrink: 0; }
   body:not(.light-theme) .logo-mark { color: #0d1117; }
   .header-title { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
-  .header-sub   { font-size: 12px; color: var(--muted); font-family: var(--mono); }
-  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-  .header-date {
-    font-family: var(--mono); font-size: 12px; color: var(--accent);
-    background: rgba(88,166,255,0.1); padding: 4px 10px; border-radius: 4px;
-    border: 1px solid rgba(88,166,255,0.2);
-  }
-  .theme-toggle {
-    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
-    padding: 6px 12px; border-radius: 6px; font-family: var(--mono); font-size: 12px;
-    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
-  }
+  .header-sub { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .header-date { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(88,166,255,0.1); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(88,166,255,0.2); }
+  .theme-toggle { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; font-family: var(--mono); font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
   .theme-toggle:hover { border-color: var(--accent); }
+  .admin-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 6px; font-family: var(--mono); font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+  .admin-btn:hover { border-color: var(--warn); color: var(--warn); }
+  .admin-btn.logged-in { border-color: var(--accent2); color: var(--accent2); }
 
   /* ── TABS ── */
-  .tab-bar {
-    display: flex; gap: 0; border-bottom: 1px solid var(--border);
-    background: var(--surface); padding: 0 24px;
-    transition: background-color 0.3s, border-color 0.3s;
-  }
-  .tab-btn {
-    padding: 12px 20px; font-family: var(--mono); font-size: 13px; font-weight: 600;
-    color: var(--muted); background: none; border: none; cursor: pointer;
-    border-bottom: 2px solid transparent; margin-bottom: -1px;
-    transition: color 0.15s, border-color 0.15s; letter-spacing: 0.04em;
-    display: flex; align-items: center; gap: 8px;
-  }
+  .tab-bar { display: flex; border-bottom: 1px solid var(--border); background: var(--surface); padding: 0 24px; transition: background-color 0.3s, border-color 0.3s; }
+  .tab-btn { padding: 12px 20px; font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
   /* ── MAIN ── */
   main { max-width: 1400px; margin: 0 auto; padding: 24px; }
-
-  /* ── TAB PANELS ── */
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
+  /* ── WARNING BANNER ── */
+  .warn-banner { display: none; align-items: center; gap: 12px; background: rgba(227,179,65,0.1); border: 1px solid rgba(227,179,65,0.35); border-radius: 10px; padding: 12px 18px; margin-bottom: 20px; font-family: var(--mono); font-size: 12px; color: var(--warn); }
+  .warn-banner.visible { display: flex; }
+  .warn-banner strong { color: var(--warn); }
+  .warn-banner .warn-icon { font-size: 18px; flex-shrink: 0; }
+  .warn-banner .configure-link { margin-left: auto; background: var(--warn); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; border: none; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+
+  /* ── LOCK SCREEN ── */
+  .lock-screen { display: none; text-align: center; padding: 80px 20px; }
+  .lock-screen.visible { display: block; }
+  .lock-icon { font-size: 48px; margin-bottom: 16px; }
+  .lock-title { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--danger); margin-bottom: 8px; }
+  .lock-sub { font-size: 13px; color: var(--muted); font-family: var(--mono); }
+
   /* ── FILTERS ── */
-  .filter-panel {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 20px; margin-bottom: 24px; transition: background-color 0.3s, border-color 0.3s;
-  }
-  .filter-label {
-    font-size: 11px; font-family: var(--mono); color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
-  }
+  .filter-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 24px; transition: background-color 0.3s, border-color 0.3s; }
+  .filter-label { font-size: 11px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
   .filter-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
   .filter-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px; }
-  .filter-group label {
-    font-size: 11px; color: var(--muted); font-family: var(--mono);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-  select {
-    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
-    padding: 8px 12px; border-radius: 6px; font-family: var(--sans); font-size: 13px;
-    cursor: pointer; appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8590' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
-    transition: border-color 0.15s, background-color 0.3s, color 0.3s;
-  }
+  .filter-group label { font-size: 11px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: var(--sans); font-size: 13px; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8590' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; transition: border-color 0.15s, background-color 0.3s, color 0.3s; }
   select:focus { outline: none; border-color: var(--accent); }
   select:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .btn-fetch {
-    background: var(--accent); color: #ffffff; border: none;
-    padding: 9px 22px; border-radius: 6px; font-family: var(--mono);
-    font-weight: 600; font-size: 13px; cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s; white-space: nowrap; align-self: flex-end;
-  }
+  .btn-fetch { background: var(--accent); color: #ffffff; border: none; padding: 9px 22px; border-radius: 6px; font-family: var(--mono); font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.15s, transform 0.1s; white-space: nowrap; align-self: flex-end; }
   body:not(.light-theme) .btn-fetch { color: #0d1117; }
   .btn-fetch:hover { opacity: 0.85; }
   .btn-fetch:active { transform: scale(0.97); }
   .btn-fetch:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  .btn-monthly {
-    background: var(--surface2); color: var(--accent); border: 1px solid var(--accent);
-    padding: 9px 22px; border-radius: 6px; font-family: var(--mono);
-    font-weight: 600; font-size: 13px; cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s, background 0.2s; white-space: nowrap; align-self: flex-end;
-  }
+  .btn-monthly { background: var(--surface2); color: var(--accent); border: 1px solid var(--accent); padding: 9px 22px; border-radius: 6px; font-family: var(--mono); font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.15s, transform 0.1s, background 0.2s; white-space: nowrap; align-self: flex-end; }
   .btn-monthly:hover { background: rgba(88,166,255,0.1); }
   .btn-monthly:active { transform: scale(0.97); }
   .btn-monthly:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
@@ -150,64 +95,37 @@
   .progress-wrap { margin-top: 14px; display: none; }
   .progress-wrap.visible { display: block; }
   .progress-text { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 6px; }
-  .progress-bar-bg {
-    background: var(--surface2); border-radius: 4px; height: 4px;
-    overflow: hidden; border: 1px solid var(--border);
-  }
-  .progress-bar-fill {
-    height: 100%; background: var(--accent); border-radius: 4px;
-    transition: width 0.3s ease; width: 0%;
-  }
-  .stream-status {
-    margin-top: 10px; display: none;
-    font-family: var(--mono); font-size: 11px;
-    color: var(--muted); align-items: center; gap: 8px;
-  }
+  .progress-bar-bg { background: var(--surface2); border-radius: 4px; height: 4px; overflow: hidden; border: 1px solid var(--border); }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.3s ease; width: 0%; }
+  .stream-status { margin-top: 10px; display: none; font-family: var(--mono); font-size: 11px; color: var(--muted); align-items: center; gap: 8px; }
   .stream-status.visible { display: flex; }
-  .pulse {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-    animation: pulse 1.2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.4; transform: scale(0.7); }
-  }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.7); } }
 
   /* ── CARDS ── */
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 24px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px; display: none; transition: background-color 0.3s, border-color 0.3s;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: none; transition: background-color 0.3s, border-color 0.3s; }
   .card.visible { display: block; }
-  .card-icon  { font-size: 18px; margin-bottom: 8px; }
+  .card-icon { font-size: 18px; margin-bottom: 8px; }
   .card-label { font-size: 11px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .card-value { font-size: 26px; font-family: var(--mono); font-weight: 600; line-height: 1; }
-  .card-sub   { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+  .card-sub { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
   .card-value.green { color: var(--accent2); }
   .card-value.blue  { color: var(--accent); }
   .card-value.red   { color: var(--danger); }
 
-  /* ── TABLES (DAILY) ── */
+  /* ── TABLES ── */
   .tables-wrap { display: none; }
   .tables-wrap.visible { display: block; }
   .table-section { margin-bottom: 28px; }
-  .table-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .table-title  { font-size: 13px; font-weight: 600; font-family: var(--mono); letter-spacing: 0.04em; }
-  .table-badge  {
-    font-size: 11px; font-family: var(--mono); padding: 2px 8px; border-radius: 10px;
-    background: rgba(88,166,255,0.12); color: var(--accent); border: 1px solid rgba(88,166,255,0.2);
-  }
+  .table-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .table-title { font-size: 13px; font-weight: 600; font-family: var(--mono); letter-spacing: 0.04em; }
+  .table-badge { font-size: 11px; font-family: var(--mono); padding: 2px 8px; border-radius: 10px; background: rgba(88,166,255,0.12); color: var(--accent); border: 1px solid rgba(88,166,255,0.2); }
   .table-sort-hint { margin-left: auto; font-size: 11px; color: var(--muted); font-family: var(--mono); }
-  .table-scroll { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  .table-scroll { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); -webkit-overflow-scrolling: touch; }
   table { width: 100%; border-collapse: collapse; }
   thead { background: var(--surface2); }
-  th {
-    padding: 10px 14px; text-align: left; font-size: 11px; font-family: var(--mono);
-    font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
-    white-space: nowrap; cursor: pointer; user-select: none;
-    border-bottom: 1px solid var(--border); transition: color 0.15s, background-color 0.3s;
-  }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-family: var(--mono); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); white-space: nowrap; cursor: pointer; user-select: none; border-bottom: 1px solid var(--border); transition: color 0.15s, background-color 0.3s; }
   th:hover { color: var(--text); }
   th .sort-arrow { margin-left: 4px; opacity: 0.4; }
   th.sorted .sort-arrow { opacity: 1; color: var(--accent); }
@@ -220,80 +138,132 @@
   td.num.present { color: var(--accent2); }
   td.num.absent  { color: var(--danger); }
   td.num.total   { color: var(--accent); }
-
-  .status-pill {
-    display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px;
-    border-radius: 20px; font-size: 11px; font-family: var(--mono);
-    font-weight: 600; letter-spacing: 0.04em;
-  }
-  .status-marked   { background: rgba(63,185,80,0.12); color: var(--accent2); border: 1px solid rgba(63,185,80,0.25); }
-  .status-unmarked { background: rgba(248,81,73,0.10); color: var(--danger);  border: 1px solid rgba(248,81,73,0.20); }
-  .status-error    { background: rgba(227,179,65,0.10); color: var(--warn);   border: 1px solid rgba(227,179,65,0.20); }
+  .status-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-family: var(--mono); font-weight: 600; letter-spacing: 0.04em; }
+  .status-marked   { background: rgba(63,185,80,0.12);  color: var(--accent2); border: 1px solid rgba(63,185,80,0.25); }
+  .status-unmarked { background: rgba(248,81,73,0.10);  color: var(--danger);  border: 1px solid rgba(248,81,73,0.20); }
+  .status-error    { background: rgba(227,179,65,0.10); color: var(--warn);    border: 1px solid rgba(227,179,65,0.20); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-  /* ── MONTHLY TABLES ── */
+  /* ── MONTHLY ── */
   .monthly-tables-wrap { display: none; }
   .monthly-tables-wrap.visible { display: block; }
-
-  /* Monthly day-cell heat coloring */
-  .pct-cell {
-    font-family: var(--mono); font-size: 12px; text-align: center;
-    padding: 8px 6px; min-width: 44px; position: relative;
-  }
-  .pct-cell .pct-bar {
-    position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 2px 2px;
-    opacity: 0.18; transition: opacity 0.15s;
-  }
+  .pct-cell { font-family: var(--mono); font-size: 12px; text-align: center; padding: 8px 6px; min-width: 44px; position: relative; }
+  .pct-cell .pct-bar { position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 2px 2px; opacity: 0.18; transition: opacity 0.15s; }
   tbody tr:hover .pct-cell .pct-bar { opacity: 0.32; }
   .pct-cell .pct-val { position: relative; z-index: 1; }
-  .pct-high  { color: var(--accent2); }
-  .pct-mid   { color: var(--warn); }
-  .pct-low   { color: var(--danger); }
-  .pct-zero  { color: var(--muted); }
-  .pct-unmarked { color: var(--muted); font-size: 11px; }
-
-  /* Monthly total column */
-  td.month-total {
-    font-family: var(--mono); font-weight: 600; font-size: 13px;
-    text-align: center; border-left: 1px solid var(--border);
-  }
-  th.month-total-th {
-    text-align: center; border-left: 1px solid var(--border); color: var(--accent);
-  }
-
-  /* Day header */
+  .pct-high { color: var(--accent2); } .pct-mid { color: var(--warn); } .pct-low { color: var(--danger); } .pct-zero { color: var(--muted); } .pct-unmarked { color: var(--muted); font-size: 11px; }
+  td.month-total { font-family: var(--mono); font-weight: 600; font-size: 13px; text-align: center; border-left: 1px solid var(--border); }
+  th.month-total-th { text-align: center; border-left: 1px solid var(--border); color: var(--accent); }
   th.day-th { text-align: center; min-width: 44px; padding: 10px 6px; }
+  th.day-th.weekend-th { color: var(--danger); background: rgba(248,81,73,0.06); }
+  th.day-th.holiday-th { color: var(--warn); background: rgba(227,179,65,0.06); }
+  td.pct-cell.weekend-col { background: rgba(248,81,73,0.04); }
+  td.pct-cell.holiday-col { background: rgba(227,179,65,0.04); }
 
-  /* ── STATES ── */
   .state-msg { text-align: center; padding: 60px 20px; color: var(--muted); font-family: var(--mono); font-size: 13px; display: none; }
   .state-msg.visible { display: block; }
   .state-msg .icon { font-size: 36px; margin-bottom: 12px; }
 
-  /* ── MONTHLY INFO BAR ── */
-  .monthly-info-bar {
-    display: none; align-items: center; gap: 16px; flex-wrap: wrap;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 18px; margin-bottom: 20px; font-family: var(--mono); font-size: 12px;
-  }
+  .monthly-info-bar { display: none; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; margin-bottom: 20px; font-family: var(--mono); font-size: 12px; }
   .monthly-info-bar.visible { display: flex; }
-  .info-chip {
-    display: flex; align-items: center; gap: 6px; color: var(--muted);
-  }
+  .info-chip { display: flex; align-items: center; gap: 6px; color: var(--muted); }
   .info-chip strong { color: var(--text); }
-  .legend-dot {
-    width: 10px; height: 10px; border-radius: 2px; display: inline-block;
-  }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+  /* ── MODAL BASE ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 500; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
+  .modal-overlay.visible { display: flex; }
+  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; width: 100%; max-width: 420px; margin: 16px; position: relative; }
+  .modal-title { font-family: var(--mono); font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .modal-sub { font-size: 12px; color: var(--muted); font-family: var(--mono); margin-bottom: 20px; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; padding: 4px; }
+  .modal-close:hover { color: var(--text); }
+  .modal-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 6px; font-family: var(--mono); font-size: 14px; margin-bottom: 12px; }
+  .modal-input:focus { outline: none; border-color: var(--accent); }
+  .modal-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 6px; font-family: var(--mono); font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.15s; }
+  body:not(.light-theme) .modal-btn { color: #0d1117; }
+  .modal-btn:hover { opacity: 0.85; }
+  .modal-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .modal-err { font-family: var(--mono); font-size: 12px; color: var(--danger); margin-bottom: 10px; display: none; }
+  .modal-err.visible { display: block; }
+
+  /* ── CALENDAR MODAL ── */
+  .cal-modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; width: 100%; max-width: 520px; margin: 16px; position: relative; }
+  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .cal-month-label { font-family: var(--mono); font-size: 15px; font-weight: 600; }
+  .cal-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .cal-legend-item { display: flex; align-items: center; gap: 5px; }
+  .cal-legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 18px; }
+  .cal-day-label { text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 4px 0; font-weight: 600; }
+  .cal-day { text-align: center; padding: 8px 4px; border-radius: 6px; font-family: var(--mono); font-size: 13px; cursor: pointer; border: 1px solid transparent; transition: all 0.15s; user-select: none; }
+  .cal-day:hover:not(.cal-empty):not(.cal-future) { border-color: var(--border); background: var(--surface2); }
+  .cal-day.cal-empty { cursor: default; }
+  .cal-day.cal-future { opacity: 0.3; cursor: not-allowed; }
+  .cal-day.cal-today { border-color: var(--accent); color: var(--accent); }
+  .cal-day.cal-weekend { background: rgba(248,81,73,0.15); color: var(--danger); border-color: rgba(248,81,73,0.3); }
+  .cal-day.cal-holiday { background: rgba(227,179,65,0.15); color: var(--warn); border-color: rgba(227,179,65,0.3); }
+  .cal-day.cal-workday { background: rgba(63,185,80,0.1); }
+  .cal-actions { display: flex; gap: 10px; }
+  .cal-btn-save { flex: 1; background: var(--accent2); color: #fff; border: none; padding: 10px; border-radius: 6px; font-family: var(--mono); font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.15s; }
+  .cal-btn-save:hover { opacity: 0.85; }
+  .cal-btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
+  .cal-btn-cancel { background: var(--surface2); color: var(--text); border: 1px solid var(--border); padding: 10px 18px; border-radius: 6px; font-family: var(--mono); font-size: 13px; cursor: pointer; }
+  .cal-save-msg { font-family: var(--mono); font-size: 12px; text-align: center; margin-top: 10px; display: none; }
+  .cal-save-msg.ok  { display: block; color: var(--accent2); }
+  .cal-save-msg.err { display: block; color: var(--danger); }
+  .cal-instructions { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
 
   @media (max-width: 640px) {
     main { padding: 12px; }
     .filter-row { flex-direction: column; }
     .filter-group { min-width: 100%; }
     .btn-fetch, .btn-monthly { width: 100%; justify-content: center; }
+    .header-date { display: none; }
   }
 </style>
 </head>
 <body>
 
+<!-- ══════════════════════ PASSWORD MODAL ══════════════════════ -->
+<div class="modal-overlay" id="pwdModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePwdModal()">✕</button>
+    <div class="modal-title">🔐 Admin Access</div>
+    <div class="modal-sub">Enter admin password to configure weekend calendar</div>
+    <div class="modal-err" id="pwdErr">Incorrect password. Try again.</div>
+    <input class="modal-input" type="password" id="pwdInput" placeholder="Password" onkeydown="if(event.key==='Enter')verifyPassword()"/>
+    <button class="modal-btn" id="pwdBtn" onclick="verifyPassword()">Unlock Admin Panel</button>
+  </div>
+</div>
+
+<!-- ══════════════════════ CALENDAR MODAL ══════════════════════ -->
+<div class="modal-overlay" id="calModal">
+  <div class="cal-modal-box">
+    <button class="modal-close" onclick="closeCalModal()">✕</button>
+    <div class="cal-header">
+      <div class="cal-month-label" id="calMonthLabel">—</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--accent2)" id="calConfigStatus"></div>
+    </div>
+    <div class="cal-instructions">
+      Click days to toggle: <span style="color:var(--danger)">Red = Weekend</span> · <span style="color:var(--warn)">Amber = Holiday</span> · Click again to clear.<br>
+      First click = Weekend, second click = Holiday, third click = Working day.
+    </div>
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(248,81,73,0.4)"></div> Weekend (excluded)</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(227,179,65,0.4)"></div> Holiday (excluded)</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(63,185,80,0.15);border:1px solid rgba(63,185,80,0.3)"></div> Working day</div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-actions">
+      <button class="cal-btn-cancel" onclick="closeCalModal()">Cancel</button>
+      <button class="cal-btn-save" id="calSaveBtn" onclick="saveCalConfig()">💾 Save Configuration</button>
+    </div>
+    <div class="cal-save-msg" id="calSaveMsg"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
 <header>
   <div class="logo-mark">SIS</div>
   <div>
@@ -302,102 +272,48 @@
   </div>
   <div class="header-actions">
     <div class="header-date" id="headerDate">—</div>
+    <button class="admin-btn" id="adminBtn" onclick="openAdminPanel()">🔑 Admin</button>
     <button class="theme-toggle" id="themeToggle">☀️ Light</button>
   </div>
 </header>
 
-<!-- TAB BAR -->
+<!-- ══════════════════════ TABS ══════════════════════ -->
 <div class="tab-bar">
-  <button class="tab-btn active" id="tabDaily" onclick="switchTab('daily')">📅 Daily</button>
-  <button class="tab-btn" id="tabMonthly" onclick="switchTab('monthly')">📆 Monthly</button>
+  <button class="tab-btn active" id="tabDaily"   onclick="switchTab('daily')">📅 Daily</button>
+  <button class="tab-btn"        id="tabMonthly" onclick="switchTab('monthly')">📆 Monthly</button>
 </div>
 
 <main>
 
-  <!-- ══════════════════════════════════════════════ -->
-  <!-- DAILY TAB                                      -->
-  <!-- ══════════════════════════════════════════════ -->
+  <!-- ══ DAILY TAB ══ -->
   <div class="tab-panel active" id="panelDaily">
-
     <div class="filter-panel">
       <div class="filter-label">📍 Select Markaz</div>
       <div class="filter-row">
-        <div class="filter-group">
-          <label>District</label>
-          <select id="selDistrict" disabled><option value="">— Loading —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Wing</label>
-          <select id="selWing" disabled><option value="">— Select District —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Tehsil</label>
-          <select id="selTehsil" disabled><option value="">— Select Wing —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Markaz</label>
-          <select id="selMarkaz" disabled><option value="">— Select Tehsil —</option></select>
-        </div>
+        <div class="filter-group"><label>District</label><select id="selDistrict" disabled><option value="">— Loading —</option></select></div>
+        <div class="filter-group"><label>Wing</label><select id="selWing" disabled><option value="">— Select District —</option></select></div>
+        <div class="filter-group"><label>Tehsil</label><select id="selTehsil" disabled><option value="">— Select Wing —</option></select></div>
+        <div class="filter-group"><label>Markaz</label><select id="selMarkaz" disabled><option value="">— Select Tehsil —</option></select></div>
         <button class="btn-fetch" id="btnFetch" disabled>Fetch Attendance</button>
       </div>
       <div class="progress-wrap" id="progressWrap">
         <div class="progress-text" id="progressText">Initialising…</div>
         <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
       </div>
-      <div class="stream-status" id="streamStatus">
-        <div class="pulse"></div>
-        <span id="streamMsg">Waiting for data…</span>
-      </div>
+      <div class="stream-status" id="streamStatus"><div class="pulse"></div><span id="streamMsg">Waiting for data…</span></div>
     </div>
-
     <div class="cards-grid" id="cardsGrid">
-      <div class="card" id="cardSchools">
-        <div class="card-icon">🏫</div>
-        <div class="card-label">Total Schools</div>
-        <div class="card-value blue" id="cSchools">—</div>
-      </div>
-      <div class="card" id="cardSPresent">
-        <div class="card-icon">🎓</div>
-        <div class="card-label">Students Present</div>
-        <div class="card-value green" id="cSPresent">—</div>
-        <div class="card-sub" id="cSAbsent">Absent: —</div>
-      </div>
-      <div class="card" id="cardSMarked">
-        <div class="card-icon">✅</div>
-        <div class="card-label">Students Marked</div>
-        <div class="card-value" id="cSMarked">—</div>
-        <div class="card-sub" id="cSUnmarked">Not marked: —</div>
-      </div>
-      <div class="card" id="cardTPresent">
-        <div class="card-icon">👨‍🏫</div>
-        <div class="card-label">Teachers Present</div>
-        <div class="card-value green" id="cTPresent">—</div>
-        <div class="card-sub" id="cTAbsent">Absent: —</div>
-      </div>
-      <div class="card" id="cardTMarked">
-        <div class="card-icon">📋</div>
-        <div class="card-label">Teachers Marked</div>
-        <div class="card-value" id="cTMarked">—</div>
-        <div class="card-sub" id="cTUnmarked">Not marked: —</div>
-      </div>
+      <div class="card" id="cardSchools"><div class="card-icon">🏫</div><div class="card-label">Total Schools</div><div class="card-value blue" id="cSchools">—</div></div>
+      <div class="card" id="cardSPresent"><div class="card-icon">🎓</div><div class="card-label">Students Present</div><div class="card-value green" id="cSPresent">—</div><div class="card-sub" id="cSAbsent">Absent: —</div></div>
+      <div class="card" id="cardSMarked"><div class="card-icon">✅</div><div class="card-label">Students Marked</div><div class="card-value" id="cSMarked">—</div><div class="card-sub" id="cSUnmarked">Not marked: —</div></div>
+      <div class="card" id="cardTPresent"><div class="card-icon">👨‍🏫</div><div class="card-label">Teachers Present</div><div class="card-value green" id="cTPresent">—</div><div class="card-sub" id="cTAbsent">Absent: —</div></div>
+      <div class="card" id="cardTMarked"><div class="card-icon">📋</div><div class="card-label">Teachers Marked</div><div class="card-value" id="cTMarked">—</div><div class="card-sub" id="cTUnmarked">Not marked: —</div></div>
     </div>
-
-    <div class="state-msg visible" id="emptyState">
-      <div class="icon">📊</div>
-      <div>Select a District, Wing, Tehsil and Markaz<br>then click <strong>Fetch Attendance</strong></div>
-    </div>
-    <div class="state-msg" id="errorState">
-      <div class="icon">⚠️</div>
-      <div id="errorMsg">Something went wrong.</div>
-    </div>
-
+    <div class="state-msg visible" id="emptyState"><div class="icon">📊</div><div>Select a District, Wing, Tehsil and Markaz<br>then click <strong>Fetch Attendance</strong></div></div>
+    <div class="state-msg" id="errorState"><div class="icon">⚠️</div><div id="errorMsg">Something went wrong.</div></div>
     <div class="tables-wrap" id="tablesWrap">
       <div class="table-section">
-        <div class="table-header">
-          <span class="table-title">🎓 STUDENTS ATTENDANCE</span>
-          <span class="table-badge" id="sBadge">0 schools</span>
-          <span class="table-sort-hint">Click column header to sort</span>
-        </div>
+        <div class="table-header"><span class="table-title">🎓 STUDENTS ATTENDANCE</span><span class="table-badge" id="sBadge">0 schools</span><span class="table-sort-hint">Click column header to sort</span></div>
         <div class="table-scroll">
           <table id="studentsTable">
             <thead><tr>
@@ -413,13 +329,8 @@
           </table>
         </div>
       </div>
-
       <div class="table-section">
-        <div class="table-header">
-          <span class="table-title">👨‍🏫 TEACHERS ATTENDANCE</span>
-          <span class="table-badge" id="tBadge">0 schools</span>
-          <span class="table-sort-hint">Click column header to sort</span>
-        </div>
+        <div class="table-header"><span class="table-title">👨‍🏫 TEACHERS ATTENDANCE</span><span class="table-badge" id="tBadge">0 schools</span><span class="table-sort-hint">Click column header to sort</span></div>
         <div class="table-scroll">
           <table id="teachersTable">
             <thead><tr>
@@ -436,135 +347,79 @@
         </div>
       </div>
     </div>
-
   </div><!-- /panelDaily -->
 
-
-  <!-- ══════════════════════════════════════════════ -->
-  <!-- MONTHLY TAB                                    -->
-  <!-- ══════════════════════════════════════════════ -->
+  <!-- ══ MONTHLY TAB ══ -->
   <div class="tab-panel" id="panelMonthly">
 
-    <div class="filter-panel">
-      <div class="filter-label">📍 Select Location — Monthly View</div>
-      <div class="filter-row">
-        <div class="filter-group">
-          <label>District</label>
-          <select id="mSelDistrict" disabled><option value="">— Loading —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Wing</label>
-          <select id="mSelWing" disabled><option value="">— Select District —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Tehsil</label>
-          <select id="mSelTehsil" disabled><option value="">— Select Wing —</option></select>
-        </div>
-        <div class="filter-group">
-          <label>Markaz</label>
-          <select id="mSelMarkaz" disabled><option value="">— Select Tehsil —</option></select>
-        </div>
-        <button class="btn-monthly" id="btnFetchMonthly" disabled>Fetch Monthly</button>
+    <!-- Warning banner (shown when no admin config for current month, days 1-3) -->
+    <div class="warn-banner" id="warnBanner">
+      <span class="warn-icon">⚠️</span>
+      <div>
+        <strong>Weekend calendar not configured</strong><br>
+        <span id="warnBannerText">Showing official schedule — data may be inaccurate.</span>
       </div>
-      <div class="progress-wrap" id="mProgressWrap">
-        <div class="progress-text" id="mProgressText">Initialising…</div>
-        <div class="progress-bar-bg"><div class="progress-bar-fill" id="mProgressFill"></div></div>
-      </div>
-      <div class="stream-status" id="mStreamStatus">
-        <div class="pulse"></div>
-        <span id="mStreamMsg">Waiting for data…</span>
-      </div>
+      <button class="configure-link" id="warnConfigBtn" onclick="openAdminPanel()" style="display:none">Configure Now</button>
     </div>
 
-    <!-- Monthly summary cards -->
-    <div class="cards-grid" id="mCardsGrid">
-      <div class="card" id="mCardSchools">
-        <div class="card-icon">🏫</div>
-        <div class="card-label">Total Schools</div>
-        <div class="card-value blue" id="mCSchools">—</div>
-      </div>
-      <div class="card" id="mCardDays">
-        <div class="card-icon">📅</div>
-        <div class="card-label">Working Days</div>
-        <div class="card-value blue" id="mCDays">—</div>
-        <div class="card-sub" id="mCDaySub">up to day —</div>
-      </div>
-      <div class="card" id="mCardSPresent">
-        <div class="card-icon">🎓</div>
-        <div class="card-label">Avg Student Att.</div>
-        <div class="card-value green" id="mCSPresent">—</div>
-        <div class="card-sub">month average %</div>
-      </div>
-      <div class="card" id="mCardTPresent">
-        <div class="card-icon">👨‍🏫</div>
-        <div class="card-label">Avg Teacher Att.</div>
-        <div class="card-value green" id="mCTPresent">—</div>
-        <div class="card-sub">month average %</div>
-      </div>
-      <div class="card" id="mCardUnmarked">
-        <div class="card-icon">⚠️</div>
-        <div class="card-label">Schools w/ Gaps</div>
-        <div class="card-value red" id="mCUnmarked">—</div>
-        <div class="card-sub">have unmarked days</div>
-      </div>
+    <!-- Lock screen (shown when no config and day > 3) -->
+    <div class="lock-screen" id="lockScreen">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">Monthly View Unavailable</div>
+      <div class="lock-sub" id="lockMsg">Weekend calendar for this month has not been configured by the administrator.<br><br>Please contact your admin to unlock this view.</div>
     </div>
 
-    <!-- Info bar -->
-    <div class="monthly-info-bar" id="mInfoBar">
-      <div class="info-chip">📆 <strong id="mInfoMonth">—</strong></div>
-      <div class="info-chip">📊 <strong id="mInfoDays">—</strong> working days shown</div>
-      <div class="info-chip">
-        <span class="legend-dot" style="background:var(--accent2)"></span> ≥80% good
-      </div>
-      <div class="info-chip">
-        <span class="legend-dot" style="background:var(--warn)"></span> 50–79% average
-      </div>
-      <div class="info-chip">
-        <span class="legend-dot" style="background:var(--danger)"></span> &lt;50% low
-      </div>
-      <div class="info-chip">
-        <span class="legend-dot" style="background:var(--muted); opacity:0.5"></span> — unmarked
-      </div>
-    </div>
-
-    <div class="state-msg visible" id="mEmptyState">
-      <div class="icon">📆</div>
-      <div>Select a Markaz and click <strong>Fetch Monthly</strong><br>to view this month's attendance breakdown</div>
-    </div>
-    <div class="state-msg" id="mErrorState">
-      <div class="icon">⚠️</div>
-      <div id="mErrorMsg">Something went wrong.</div>
-    </div>
-
-    <div class="monthly-tables-wrap" id="mTablesWrap">
-      <!-- Students monthly table -->
-      <div class="table-section">
-        <div class="table-header">
-          <span class="table-title">🎓 STUDENTS — MONTHLY ATTENDANCE %</span>
-          <span class="table-badge" id="mSBadge">0 schools</span>
+    <div id="monthlyContent">
+      <div class="filter-panel">
+        <div class="filter-label">📍 Select Location — Monthly View</div>
+        <div class="filter-row">
+          <div class="filter-group"><label>District</label><select id="mSelDistrict" disabled><option value="">— Loading —</option></select></div>
+          <div class="filter-group"><label>Wing</label><select id="mSelWing" disabled><option value="">— Select District —</option></select></div>
+          <div class="filter-group"><label>Tehsil</label><select id="mSelTehsil" disabled><option value="">— Select Wing —</option></select></div>
+          <div class="filter-group"><label>Markaz</label><select id="mSelMarkaz" disabled><option value="">— Select Tehsil —</option></select></div>
+          <button class="btn-monthly" id="btnFetchMonthly" disabled>Fetch Monthly</button>
         </div>
-        <div class="table-scroll">
-          <table id="mStudentsTable">
-            <thead><tr id="mStudentsHead"></tr></thead>
-            <tbody id="mStudentsTbody"></tbody>
-          </table>
+        <div class="progress-wrap" id="mProgressWrap">
+          <div class="progress-text" id="mProgressText">Initialising…</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" id="mProgressFill"></div></div>
         </div>
+        <div class="stream-status" id="mStreamStatus"><div class="pulse"></div><span id="mStreamMsg">Waiting for data…</span></div>
       </div>
 
-      <!-- Teachers monthly table -->
-      <div class="table-section">
-        <div class="table-header">
-          <span class="table-title">👨‍🏫 TEACHERS — MONTHLY ATTENDANCE %</span>
-          <span class="table-badge" id="mTBadge">0 schools</span>
+      <div class="cards-grid" id="mCardsGrid">
+        <div class="card" id="mCardSchools"><div class="card-icon">🏫</div><div class="card-label">Total Schools</div><div class="card-value blue" id="mCSchools">—</div></div>
+        <div class="card" id="mCardDays"><div class="card-icon">📅</div><div class="card-label">Working Days</div><div class="card-value blue" id="mCDays">—</div><div class="card-sub" id="mCDaySub">up to day —</div></div>
+        <div class="card" id="mCardSPresent"><div class="card-icon">🎓</div><div class="card-label">Avg Student Att.</div><div class="card-value green" id="mCSPresent">—</div><div class="card-sub">month average %</div></div>
+        <div class="card" id="mCardTPresent"><div class="card-icon">👨‍🏫</div><div class="card-label">Avg Teacher Att.</div><div class="card-value green" id="mCTPresent">—</div><div class="card-sub">month average %</div></div>
+        <div class="card" id="mCardUnmarked"><div class="card-icon">⚠️</div><div class="card-label">Schools w/ Gaps</div><div class="card-value red" id="mCUnmarked">—</div><div class="card-sub">have unmarked days</div></div>
+      </div>
+
+      <div class="monthly-info-bar" id="mInfoBar">
+        <div class="info-chip">📆 <strong id="mInfoMonth">—</strong></div>
+        <div class="info-chip">📊 <strong id="mInfoDays">—</strong> working days</div>
+        <div class="info-chip" id="mInfoConfigBadge" style="display:none"></div>
+        <div class="info-chip"><span class="legend-dot" style="background:var(--accent2)"></span> ≥80% good</div>
+        <div class="info-chip"><span class="legend-dot" style="background:var(--warn)"></span> 50–79% avg</div>
+        <div class="info-chip"><span class="legend-dot" style="background:var(--danger)"></span> &lt;50% low</div>
+        <div class="info-chip"><span class="legend-dot" style="background:var(--muted);opacity:0.5"></span> — unmarked</div>
+        <div class="info-chip"><span class="legend-dot" style="background:rgba(248,81,73,0.4)"></span> Weekend</div>
+        <div class="info-chip"><span class="legend-dot" style="background:rgba(227,179,65,0.4)"></span> Holiday</div>
+      </div>
+
+      <div class="state-msg visible" id="mEmptyState"><div class="icon">📆</div><div>Select a Markaz and click <strong>Fetch Monthly</strong><br>to view this month's attendance breakdown</div></div>
+      <div class="state-msg" id="mErrorState"><div class="icon">⚠️</div><div id="mErrorMsg">Something went wrong.</div></div>
+
+      <div class="monthly-tables-wrap" id="mTablesWrap">
+        <div class="table-section">
+          <div class="table-header"><span class="table-title">🎓 STUDENTS — MONTHLY ATTENDANCE %</span><span class="table-badge" id="mSBadge">0 schools</span></div>
+          <div class="table-scroll"><table id="mStudentsTable"><thead><tr id="mStudentsHead"></tr></thead><tbody id="mStudentsTbody"></tbody></table></div>
         </div>
-        <div class="table-scroll">
-          <table id="mTeachersTable">
-            <thead><tr id="mTeachersHead"></tr></thead>
-            <tbody id="mTeachersTbody"></tbody>
-          </table>
+        <div class="table-section">
+          <div class="table-header"><span class="table-title">👨‍🏫 TEACHERS — MONTHLY ATTENDANCE %</span><span class="table-badge" id="mTBadge">0 schools</span></div>
+          <div class="table-scroll"><table id="mTeachersTable"><thead><tr id="mTeachersHead"></tr></thead><tbody id="mTeachersTbody"></tbody></table></div>
         </div>
       </div>
-    </div>
+    </div><!-- /monthlyContent -->
 
   </div><!-- /panelMonthly -->
 
@@ -578,7 +433,23 @@ const CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFGaSeUAf7BVk
 const GAS_URL  = "https://script.google.com/macros/s/AKfycbyPZSApngm56qdfMq9pWdqKOsrt5wCPnm_8ovYZ5P2GYB24CA0Rj8ipo7luLyoRPZUU/exec";
 const POLL_MS  = 2000;
 const POLL_MAX = 180;
-const MONTH    = "scma"; // always current month
+const MONTH    = "scma";
+
+// Grace period in days: monthly tab shows warning instead of lock
+const GRACE_DAYS = 3;
+
+// ════════════════════════════════════════════════════════════
+//  ADMIN STATE
+// ════════════════════════════════════════════════════════════
+let isAdminLoggedIn  = false;
+let adminConfig      = null;  // { found, weekends:[], holidays:[], updatedAt } for current month
+let adminConfigLoaded = false;
+
+// Current month key e.g. "2026-05"
+function currentMonthKey() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+}
 
 // ════════════════════════════════════════════════════════════
 //  TAB SWITCHING
@@ -588,9 +459,292 @@ function switchTab(tab) {
   document.getElementById('panelMonthly').classList.toggle('active', tab === 'monthly');
   document.getElementById('tabDaily').classList.toggle('active', tab === 'daily');
   document.getElementById('tabMonthly').classList.toggle('active', tab === 'monthly');
+  if (tab === 'monthly') evaluateMonthlyAccess();
 }
 
-// ── Theme Toggle ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  MONTHLY ACCESS CONTROL (Approach D)
+// ════════════════════════════════════════════════════════════
+function evaluateMonthlyAccess() {
+  const warnBanner    = document.getElementById('warnBanner');
+  const lockScreen    = document.getElementById('lockScreen');
+  const monthlyContent= document.getElementById('monthlyContent');
+  const warnConfigBtn = document.getElementById('warnConfigBtn');
+
+  // Config is loaded — reset visibility first
+  warnBanner.classList.remove('visible');
+  lockScreen.classList.remove('visible');
+  monthlyContent.style.display = 'block';
+
+  if (!adminConfigLoaded) return; // still loading, don't evaluate yet
+
+  if (adminConfig && adminConfig.found) {
+    // Config exists for this month — all clear
+    if (isAdminLoggedIn) {
+      // Show configure button in info bar for admin convenience
+      const badge = document.getElementById('mInfoConfigBadge');
+      badge.style.display = 'flex';
+      badge.innerHTML = `<span style="color:var(--accent2)">✓ Admin config active</span>
+        <button onclick="openCalModal()" style="margin-left:8px;background:none;border:1px solid var(--accent2);color:var(--accent2);padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:11px;cursor:pointer">Edit</button>`;
+    }
+    return;
+  }
+
+  // No config for this month
+  const today = new Date().getDate(); // day of month (1-31)
+
+  if (today <= GRACE_DAYS) {
+    // Grace period — show warning banner but allow access
+    warnBanner.classList.add('visible');
+    document.getElementById('warnBannerText').textContent =
+      `Showing SIS official schedule — may be inaccurate. Admin has ${GRACE_DAYS - today + 1} day(s) to configure.`;
+    if (isAdminLoggedIn) {
+      warnConfigBtn.style.display = 'inline-block';
+    }
+  } else {
+    // Grace period over — lock the monthly view
+    lockScreen.classList.add('visible');
+    monthlyContent.style.display = 'none';
+    // If admin is logged in, still let them configure from lock screen
+    if (isAdminLoggedIn) {
+      document.getElementById('lockMsg').innerHTML =
+        `Weekend calendar for this month has not been configured.<br><br>
+        <button onclick="openCalModal()" style="background:var(--accent2);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-family:var(--mono);font-weight:600;cursor:pointer;margin-top:8px">
+          🗓️ Configure Now
+        </button>`;
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  ADMIN PASSWORD MODAL
+// ════════════════════════════════════════════════════════════
+function openAdminPanel() {
+  if (isAdminLoggedIn) {
+    openCalModal();
+    return;
+  }
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('pwdErr').classList.remove('visible');
+  document.getElementById('pwdModal').classList.add('visible');
+  setTimeout(() => document.getElementById('pwdInput').focus(), 100);
+}
+
+function closePwdModal() {
+  document.getElementById('pwdModal').classList.remove('visible');
+}
+
+async function verifyPassword() {
+  const pwd = document.getElementById('pwdInput').value.trim();
+  if (!pwd) return;
+  const btn = document.getElementById('pwdBtn');
+  btn.disabled = true;
+  btn.textContent = 'Checking…';
+  document.getElementById('pwdErr').classList.remove('visible');
+  try {
+    const resp = await fetch(`${GAS_URL}?action=verifyPassword&password=${encodeURIComponent(pwd)}`);
+    const data = await resp.json();
+    if (data.ok) {
+      isAdminLoggedIn = true;
+      closePwdModal();
+      document.getElementById('adminBtn').textContent = '🔓 Admin';
+      document.getElementById('adminBtn').classList.add('logged-in');
+      openCalModal();
+    } else {
+      document.getElementById('pwdErr').classList.add('visible');
+    }
+  } catch(e) {
+    document.getElementById('pwdErr').textContent = 'Connection error. Try again.';
+    document.getElementById('pwdErr').classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Unlock Admin Panel';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  CALENDAR STATE
+// ════════════════════════════════════════════════════════════
+// dayStates: { dayNumber: 0=workday, 1=weekend, 2=holiday }
+let calDayStates = {};
+
+function openCalModal() {
+  const now   = new Date();
+  const year  = now.getFullYear();
+  const month = now.getMonth(); // 0-indexed
+  const mKey  = currentMonthKey();
+
+  // Month label
+  document.getElementById('calMonthLabel').textContent =
+    now.toLocaleDateString('en-PK', { month: 'long', year: 'numeric' }) + ' — Weekend Calendar';
+
+  // Status
+  if (adminConfig && adminConfig.found) {
+    document.getElementById('calConfigStatus').textContent =
+      `Last saved: ${new Date(adminConfig.updatedAt).toLocaleDateString('en-PK')}`;
+  } else {
+    document.getElementById('calConfigStatus').textContent = 'Not configured yet';
+  }
+
+  // Initialise day states from saved config or defaults
+  calDayStates = {};
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    calDayStates[d] = 0; // default working
+  }
+
+  if (adminConfig && adminConfig.found) {
+    (adminConfig.weekends || []).forEach(d => { calDayStates[d] = 1; });
+    (adminConfig.holidays || []).forEach(d => { calDayStates[d] = 2; });
+  } else {
+    // Default: Saturday=1, Sunday=2 type marking by actual day-of-week
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dow = new Date(year, month, d).getDay(); // 0=Sun,6=Sat
+      if (dow === 0 || dow === 6) calDayStates[d] = 1; // weekend by default
+    }
+  }
+
+  renderCalGrid(year, month);
+  document.getElementById('calSaveMsg').className = 'cal-save-msg';
+  document.getElementById('calSaveBtn').disabled = false;
+  document.getElementById('calModal').classList.add('visible');
+}
+
+function closeCalModal() {
+  document.getElementById('calModal').classList.remove('visible');
+}
+
+function renderCalGrid(year, month) {
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  const dayLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  dayLabels.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-day-label';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDow    = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today       = new Date();
+  const todayDay    = (today.getFullYear() === year && today.getMonth() === month) ? today.getDate() : -1;
+
+  // Empty slots before day 1
+  for (let i = 0; i < firstDow; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day cal-empty';
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el  = document.createElement('div');
+    const state = calDayStates[d] || 0;
+    let cls = 'cal-day';
+    if (d === todayDay) cls += ' cal-today';
+    if (state === 1) cls += ' cal-weekend';
+    else if (state === 2) cls += ' cal-holiday';
+    else cls += ' cal-workday';
+    el.className = cls;
+    el.textContent = d;
+    el.dataset.day = d;
+    el.addEventListener('click', toggleCalDay);
+    grid.appendChild(el);
+  }
+}
+
+function toggleCalDay(e) {
+  const d     = parseInt(e.currentTarget.dataset.day);
+  const now   = new Date();
+  const state = (calDayStates[d] || 0);
+  calDayStates[d] = (state + 1) % 3; // cycle: 0→1→2→0
+
+  // Re-apply class
+  const el    = e.currentTarget;
+  const isToday = el.classList.contains('cal-today');
+  el.className = 'cal-day' + (isToday ? ' cal-today' : '');
+  if (calDayStates[d] === 1) el.classList.add('cal-weekend');
+  else if (calDayStates[d] === 2) el.classList.add('cal-holiday');
+  else el.classList.add('cal-workday');
+}
+
+async function saveCalConfig() {
+  const weekends = Object.entries(calDayStates).filter(([,v]) => v === 1).map(([k]) => parseInt(k));
+  const holidays = Object.entries(calDayStates).filter(([,v]) => v === 2).map(([k]) => parseInt(k));
+  const mKey     = currentMonthKey();
+  const btn      = document.getElementById('calSaveBtn');
+  const msg      = document.getElementById('calSaveMsg');
+
+  btn.disabled    = true;
+  btn.textContent = '⏳ Saving…';
+  msg.className   = 'cal-save-msg';
+
+  try {
+    const url = `${GAS_URL}?action=saveConfig&month=${encodeURIComponent(mKey)}&weekends=${encodeURIComponent(JSON.stringify(weekends))}&holidays=${encodeURIComponent(JSON.stringify(holidays))}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.saved) {
+      // Update local cache
+      adminConfig = { found: true, weekends, holidays, updatedAt: new Date().toISOString() };
+      adminConfigLoaded = true;
+      msg.className  = 'cal-save-msg ok';
+      msg.textContent = `✓ Saved successfully! ${weekends.length} weekend day(s), ${holidays.length} holiday(s) configured.`;
+      // Re-evaluate monthly access now that config is saved
+      setTimeout(() => { closeCalModal(); evaluateMonthlyAccess(); }, 1800);
+    } else {
+      msg.className  = 'cal-save-msg err';
+      msg.textContent = '✗ Save failed: ' + (data.error || 'Unknown error');
+    }
+  } catch(e) {
+    msg.className  = 'cal-save-msg err';
+    msg.textContent = '✗ Connection error. Try again.';
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = '💾 Save Configuration';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  LOAD ADMIN CONFIG ON STARTUP
+// ════════════════════════════════════════════════════════════
+async function loadAdminConfig() {
+  try {
+    const mKey = currentMonthKey();
+    const resp = await fetch(`${GAS_URL}?action=getConfig&month=${encodeURIComponent(mKey)}`);
+    const data = await resp.json();
+    adminConfig      = data;
+    adminConfigLoaded = true;
+  } catch(e) {
+    // If GAS unreachable, treat as not found (graceful fallback)
+    adminConfig      = { found: false };
+    adminConfigLoaded = true;
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  HELPERS: get admin weekend/holiday sets for current month
+// ════════════════════════════════════════════════════════════
+function getAdminWeekendSet() {
+  if (adminConfig && adminConfig.found) return new Set(adminConfig.weekends || []);
+  return null; // null = use backend data
+}
+function getAdminHolidaySet() {
+  if (adminConfig && adminConfig.found) return new Set(adminConfig.holidays || []);
+  return new Set();
+}
+
+// Is a given day-number a non-working day per admin config?
+function isNonWorking(dayNum) {
+  if (!adminConfig || !adminConfig.found) return false;
+  const ws = getAdminWeekendSet();
+  const hs = getAdminHolidaySet();
+  return (ws && ws.has(dayNum)) || hs.has(dayNum);
+}
+
+// ════════════════════════════════════════════════════════════
+//  THEME
+// ════════════════════════════════════════════════════════════
 document.getElementById('themeToggle').addEventListener('click', function() {
   document.body.classList.toggle('light-theme');
   this.innerHTML = document.body.classList.contains('light-theme') ? '🌙 Dark' : '☀️ Light';
@@ -627,12 +781,10 @@ function fillSelect(el, options, placeholder) {
   el.disabled = false;
 }
 
-// ── Wire up DAILY selects ────────────────────────────────────
+// ── DAILY selects ────────────────────────────────────────────
 document.getElementById('selDistrict').addEventListener('change', function() {
   const d = this.value;
-  const selW = document.getElementById('selWing');
-  const selT = document.getElementById('selTehsil');
-  const selM = document.getElementById('selMarkaz');
+  const selW = document.getElementById('selWing'), selT = document.getElementById('selTehsil'), selM = document.getElementById('selMarkaz');
   selT.innerHTML = '<option value="">— Select Wing —</option>'; selT.disabled = true;
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetch').disabled = true;
@@ -641,19 +793,15 @@ document.getElementById('selDistrict').addEventListener('change', function() {
   selW.dispatchEvent(new Event('change'));
 });
 document.getElementById('selWing').addEventListener('change', function() {
-  const d = document.getElementById('selDistrict').value;
-  const w = this.value;
-  const selT = document.getElementById('selTehsil');
-  const selM = document.getElementById('selMarkaz');
+  const d = document.getElementById('selDistrict').value, w = this.value;
+  const selT = document.getElementById('selTehsil'), selM = document.getElementById('selMarkaz');
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetch').disabled = true;
   if (!d) return;
   fillSelect(selT, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w)).map(r => r['Tehsil'])), '— Select Tehsil —');
 });
 document.getElementById('selTehsil').addEventListener('change', function() {
-  const d = document.getElementById('selDistrict').value;
-  const w = document.getElementById('selWing').value;
-  const t = this.value;
+  const d = document.getElementById('selDistrict').value, w = document.getElementById('selWing').value, t = this.value;
   const selM = document.getElementById('selMarkaz');
   document.getElementById('btnFetch').disabled = true;
   if (!t) { selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true; return; }
@@ -663,12 +811,10 @@ document.getElementById('selMarkaz').addEventListener('change', function() {
   document.getElementById('btnFetch').disabled = !this.value;
 });
 
-// ── Wire up MONTHLY selects ──────────────────────────────────
+// ── MONTHLY selects ──────────────────────────────────────────
 document.getElementById('mSelDistrict').addEventListener('change', function() {
   const d = this.value;
-  const selW = document.getElementById('mSelWing');
-  const selT = document.getElementById('mSelTehsil');
-  const selM = document.getElementById('mSelMarkaz');
+  const selW = document.getElementById('mSelWing'), selT = document.getElementById('mSelTehsil'), selM = document.getElementById('mSelMarkaz');
   selT.innerHTML = '<option value="">— Select Wing —</option>'; selT.disabled = true;
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetchMonthly').disabled = true;
@@ -677,19 +823,15 @@ document.getElementById('mSelDistrict').addEventListener('change', function() {
   selW.dispatchEvent(new Event('change'));
 });
 document.getElementById('mSelWing').addEventListener('change', function() {
-  const d = document.getElementById('mSelDistrict').value;
-  const w = this.value;
-  const selT = document.getElementById('mSelTehsil');
-  const selM = document.getElementById('mSelMarkaz');
+  const d = document.getElementById('mSelDistrict').value, w = this.value;
+  const selT = document.getElementById('mSelTehsil'), selM = document.getElementById('mSelMarkaz');
   selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true;
   document.getElementById('btnFetchMonthly').disabled = true;
   if (!d) return;
   fillSelect(selT, unique(allRows.filter(r => r['District'] === d && (!w || r['Wing'] === w)).map(r => r['Tehsil'])), '— Select Tehsil —');
 });
 document.getElementById('mSelTehsil').addEventListener('change', function() {
-  const d = document.getElementById('mSelDistrict').value;
-  const w = document.getElementById('mSelWing').value;
-  const t = this.value;
+  const d = document.getElementById('mSelDistrict').value, w = document.getElementById('mSelWing').value, t = this.value;
   const selM = document.getElementById('mSelMarkaz');
   document.getElementById('btnFetchMonthly').disabled = true;
   if (!t) { selM.innerHTML = '<option value="">— Select Tehsil —</option>'; selM.disabled = true; return; }
@@ -700,7 +842,7 @@ document.getElementById('mSelMarkaz').addEventListener('change', function() {
 });
 
 // ════════════════════════════════════════════════════════════
-//  DAILY FETCH + POLL
+//  DAILY FETCH + POLL (unchanged from original)
 // ════════════════════════════════════════════════════════════
 let pollTimer = null, pollCount = 0, isFetching = false;
 let sortState = { s: { col: 'status', asc: true }, t: { col: 'status', asc: true } };
@@ -711,14 +853,9 @@ document.getElementById('btnFetch').addEventListener('click', startFetch);
 async function startFetch() {
   const markaz = document.getElementById('selMarkaz').value;
   if (!markaz) return;
-  stopPolling();
-  isFetching = true;
-  resetDailyUI();
-  setFetchingUI(true);
+  stopPolling(); isFetching = true; resetDailyUI(); setFetchingUI(true);
   showProgress(0, 0, 'Sending fetch request to server…');
-  try {
-    fetch(`${GAS_URL}?action=fetch&markaz=${encodeURIComponent(markaz)}`).catch(() => {});
-  } catch(e) {}
+  try { fetch(`${GAS_URL}?action=fetch&markaz=${encodeURIComponent(markaz)}`).catch(() => {}); } catch(e) {}
   await sleep(1500);
   pollCount = 0;
   pollTimer = setInterval(() => pollStatus(markaz), POLL_MS);
@@ -726,10 +863,7 @@ async function startFetch() {
 
 async function pollStatus(markaz) {
   pollCount++;
-  if (pollCount > POLL_MAX) {
-    stopPolling(); setFetchingUI(false);
-    showDailyError('Timed out waiting for data.'); return;
-  }
+  if (pollCount > POLL_MAX) { stopPolling(); setFetchingUI(false); showDailyError('Timed out waiting for data.'); return; }
   try {
     const resp = await fetch(`${GAS_URL}?action=status&markaz=${encodeURIComponent(markaz)}`);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -747,26 +881,15 @@ async function pollStatus(markaz) {
       if (data.todayDate) document.getElementById('headerDate').textContent = data.todayDate;
     }
     if (state === 'locked') { setStreamMsg('Another user is fetching this Markaz. Waiting…'); return; }
-    if (state === 'done') {
-      stopPolling(); setFetchingUI(false); hideProgress(); hideStreamStatus();
-      if (rows.length === 0) showDailyError('Fetch completed but no data returned.');
-    }
+    if (state === 'done') { stopPolling(); setFetchingUI(false); hideProgress(); hideStreamStatus(); if (rows.length === 0) showDailyError('Fetch completed but no data returned.'); }
     if (state === 'error') { stopPolling(); setFetchingUI(false); showDailyError(data.error || 'Unknown error.'); }
-  } catch(e) {
-    setStreamMsg(`Poll attempt ${pollCount}… (${e.message})`);
-  }
+  } catch(e) { setStreamMsg(`Poll attempt ${pollCount}… (${e.message})`); }
 }
 
-function stopPolling() {
-  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
-  isFetching = false;
-}
+function stopPolling() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } isFetching = false; }
 
-// ── Daily render ─────────────────────────────────────────────
 function renderFromGAS(rows) {
-  lastRows = rows;
-  renderDailyTables();
-  renderDailyCards();
+  lastRows = rows; renderDailyTables(); renderDailyCards();
   document.getElementById('tablesWrap').classList.add('visible');
   document.getElementById('emptyState').classList.remove('visible');
   document.querySelectorAll('#cardsGrid .card').forEach(c => c.classList.add('visible'));
@@ -801,16 +924,14 @@ function statusPill(status, error) {
 }
 
 function renderTableBody(tbodyId, objs, tableKey) {
-  const tbody  = document.getElementById(tbodyId);
-  const col    = sortState[tableKey].col;
-  const asc    = sortState[tableKey].asc;
+  const tbody = document.getElementById(tbodyId);
+  const col = sortState[tableKey].col, asc = sortState[tableKey].asc;
   const sorted = sortData(objs, col, asc);
-  const table  = tbody.closest('table');
+  const table = tbody.closest('table');
   table.querySelectorAll('th').forEach(th => {
     th.classList.toggle('sorted', th.dataset.col === col);
     const arrow = th.querySelector('.sort-arrow');
-    if (th.dataset.col === col) arrow.textContent = asc ? ' ↑' : ' ↓';
-    else arrow.textContent = ' ↕';
+    if (th.dataset.col === col) arrow.textContent = asc ? ' ↑' : ' ↓'; else arrow.textContent = ' ↕';
   });
   const isT = tableKey === 't';
   tbody.innerHTML = sorted.map(r => {
@@ -819,8 +940,7 @@ function renderTableBody(tbodyId, objs, tableKey) {
     const mar  = isT ? r.tMarked  : r.marked;
     const st   = isT ? r.tStatus  : r.status;
     return `<tr>
-      <td class="school-name">${r.name}</td>
-      <td>${r.level}</td><td>${r.gender}</td>
+      <td class="school-name">${r.name}</td><td>${r.level}</td><td>${r.gender}</td>
       <td class="num present">${pres != null ? Number(pres).toLocaleString() : '—'}</td>
       <td class="num absent">${abs != null ? Number(abs).toLocaleString() : '—'}</td>
       <td class="num total">${mar != null ? Number(mar).toLocaleString() : '—'}</td>
@@ -873,24 +993,19 @@ function renderDailyCards() {
 }
 
 // ════════════════════════════════════════════════════════════
-//  MONTHLY FETCH + POLL
+//  MONTHLY FETCH + POLL (unchanged from original)
 // ════════════════════════════════════════════════════════════
 let mPollTimer = null, mPollCount = 0, mIsFetching = false;
-let mLastData  = null; // full response from statusMonthly
+let mLastData  = null;
 
 document.getElementById('btnFetchMonthly').addEventListener('click', startMonthlyFetch);
 
 async function startMonthlyFetch() {
   const markaz = document.getElementById('mSelMarkaz').value;
   if (!markaz) return;
-  stopMonthlyPolling();
-  mIsFetching = true;
-  resetMonthlyUI();
-  setMonthlyFetchingUI(true);
+  stopMonthlyPolling(); mIsFetching = true; resetMonthlyUI(); setMonthlyFetchingUI(true);
   showMProgress(0, 0, 'Sending monthly fetch request to server…');
-  try {
-    fetch(`${GAS_URL}?action=fetchMonthly&markaz=${encodeURIComponent(markaz)}&month=${MONTH}`).catch(() => {});
-  } catch(e) {}
+  try { fetch(`${GAS_URL}?action=fetchMonthly&markaz=${encodeURIComponent(markaz)}&month=${MONTH}`).catch(() => {}); } catch(e) {}
   await sleep(1500);
   mPollCount = 0;
   mPollTimer = setInterval(() => pollMonthlyStatus(markaz), POLL_MS);
@@ -898,57 +1013,37 @@ async function startMonthlyFetch() {
 
 async function pollMonthlyStatus(markaz) {
   mPollCount++;
-  if (mPollCount > POLL_MAX) {
-    stopMonthlyPolling(); setMonthlyFetchingUI(false);
-    showMonthlyError('Timed out waiting for monthly data.'); return;
-  }
+  if (mPollCount > POLL_MAX) { stopMonthlyPolling(); setMonthlyFetchingUI(false); showMonthlyError('Timed out waiting for monthly data.'); return; }
   try {
     const resp = await fetch(`${GAS_URL}?action=statusMonthly&markaz=${encodeURIComponent(markaz)}&month=${MONTH}`);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     if (data.error) { stopMonthlyPolling(); setMonthlyFetchingUI(false); showMonthlyError(data.error); return; }
-    const state   = data.state   || 'empty';
-    const rows    = data.rows    || [];
-    const fetched = data.fetched || 0;
-    const total   = data.total   || 0;
+    const state = data.state || 'empty', rows = data.rows || [];
+    const fetched = data.fetched || 0, total = data.total || 0;
     if (state === 'fetching') {
       const pct = total > 0 ? Math.round((fetched / total) * 100) : 0;
       showMProgress(pct, fetched, `Fetching: ${fetched} / ${total} schools…`);
       setMStreamMsg(`Receiving monthly data…`);
     }
-    if (rows.length > 0) {
-      mLastData = data;
-      renderMonthlyData(data);
-    }
+    if (rows.length > 0) { mLastData = data; renderMonthlyData(data); }
     if (state === 'locked') { setMStreamMsg('Another request is fetching this Markaz. Waiting…'); return; }
-    if (state === 'done') {
-      stopMonthlyPolling(); setMonthlyFetchingUI(false); hideMProgress(); hideMStreamStatus();
-      if (rows.length === 0) showMonthlyError('Fetch completed but no data returned.');
-    }
+    if (state === 'done') { stopMonthlyPolling(); setMonthlyFetchingUI(false); hideMProgress(); hideMStreamStatus(); if (rows.length === 0) showMonthlyError('Fetch completed but no data returned.'); }
     if (state === 'error') { stopMonthlyPolling(); setMonthlyFetchingUI(false); showMonthlyError(data.error || 'Unknown error.'); }
-  } catch(e) {
-    setMStreamMsg(`Poll attempt ${mPollCount}… (${e.message})`);
-  }
+  } catch(e) { setMStreamMsg(`Poll attempt ${mPollCount}… (${e.message})`); }
 }
 
-function stopMonthlyPolling() {
-  if (mPollTimer) { clearInterval(mPollTimer); mPollTimer = null; }
-  mIsFetching = false;
-}
+function stopMonthlyPolling() { if (mPollTimer) { clearInterval(mPollTimer); mPollTimer = null; } mIsFetching = false; }
 
 // ════════════════════════════════════════════════════════════
-//  MONTHLY RENDER
+//  MONTHLY RENDER — USES ADMIN CONFIG FOR WEEKENDS/HOLIDAYS
 // ════════════════════════════════════════════════════════════
 function renderMonthlyData(data) {
-  const rows     = data.rows    || [];
-  const weekends = data.weekends || {};
-  const holidays = new Set((data.holidayDates || []).map(String));
-  const day      = data.day;
-
+  const rows = data.rows || [];
+  const day  = data.day;
   if (!rows.length) return;
 
-  // Collect all categories that appear across all schools (union), sorted
-  // Only include days up to current `day`
+  // Collect all categories (day numbers) up to current day
   const catSet = new Set();
   rows.forEach(r => {
     const sd = r.studentData;
@@ -956,55 +1051,68 @@ function renderMonthlyData(data) {
   });
   const categories = [...catSet].sort((a,b) => a - b);
 
-  // Build header row
+  // Admin config sets: use admin if available, else backend weekends
+  const adminWS = getAdminWeekendSet();
+  const adminHS = getAdminHolidaySet();
+
+  // Build header — highlight weekends/holidays
   const baseHeaders = `
-    <th style="min-width:220px">School</th>
-    <th>Level</th>
-    <th>Gender</th>
-  `;
-  const dayHeaders = categories.map(d =>
-    `<th class="day-th">${d}</th>`
-  ).join('');
+    <th style="min-width:220px;position:sticky;left:0;background:var(--surface2);z-index:2">School</th>
+    <th>Level</th><th>Gender</th>`;
+  const dayHeaders = categories.map(d => {
+    let cls = 'day-th';
+    if (adminWS && adminWS.has(d)) cls += ' weekend-th';
+    else if (adminHS.has(d)) cls += ' holiday-th';
+    return `<th class="${cls}">${d}</th>`;
+  }).join('');
   const headHTML = baseHeaders + dayHeaders + `<th class="month-total-th">Avg%</th>`;
 
   document.getElementById('mStudentsHead').innerHTML = headHTML;
   document.getElementById('mTeachersHead').innerHTML = headHTML;
 
-  // Build table bodies
   document.getElementById('mStudentsTbody').innerHTML = rows.map(r =>
-    buildMonthlyRow(r, 'studentData', categories)
+    buildMonthlyRow(r, 'studentData', categories, adminWS, adminHS)
   ).join('');
   document.getElementById('mTeachersTbody').innerHTML = rows.map(r =>
-    buildMonthlyRow(r, 'teacherData', categories)
+    buildMonthlyRow(r, 'teacherData', categories, adminWS, adminHS)
   ).join('');
 
-  // Badges
   document.getElementById('mSBadge').textContent = `${rows.length} school${rows.length !== 1 ? 's' : ''}`;
   document.getElementById('mTBadge').textContent = `${rows.length} school${rows.length !== 1 ? 's' : ''}`;
 
   // Info bar
+  const workingDays = categories.filter(d => !(adminWS && adminWS.has(d)) && !adminHS.has(d)).length;
   document.getElementById('mInfoMonth').textContent = MONTH.toUpperCase();
-  document.getElementById('mInfoDays').textContent  = categories.length;
+  document.getElementById('mInfoDays').textContent  = workingDays;
   document.getElementById('mInfoBar').classList.add('visible');
+  if (adminConfig && adminConfig.found) {
+    const badge = document.getElementById('mInfoConfigBadge');
+    badge.style.display = 'flex';
+    badge.innerHTML = `<span style="color:var(--accent2);font-family:var(--mono);font-size:11px">✓ Admin calendar active</span>`;
+  }
 
-  // Summary cards
-  renderMonthlyCards(rows, categories, day);
+  renderMonthlyCards(rows, categories, day, adminWS, adminHS);
 
   document.getElementById('mTablesWrap').classList.add('visible');
   document.getElementById('mEmptyState').classList.remove('visible');
   document.querySelectorAll('#mCardsGrid .card').forEach(c => c.classList.add('visible'));
 }
 
-function buildMonthlyRow(rowData, dataKey, categories) {
-  const d  = rowData[dataKey]; // studentData or teacherData
+function buildMonthlyRow(rowData, dataKey, categories, adminWS, adminHS) {
+  const d  = rowData[dataKey];
   const ok = d && !d.error && Array.isArray(d.categories);
-
-  // Build a lookup: day number → index in the arrays
   const catIdx = {};
   if (ok) d.categories.forEach((c, i) => catIdx[c] = i);
 
   const dayCells = categories.map(day => {
-    if (!ok) return `<td class="pct-cell pct-zero"><span class="pct-val">—</span></td>`;
+    const isWeekend = adminWS && adminWS.has(day);
+    const isHoliday = adminHS && adminHS.has(day);
+    const extraCls  = isWeekend ? ' weekend-col' : isHoliday ? ' holiday-col' : '';
+
+    if (isWeekend || isHoliday) {
+      return `<td class="pct-cell${extraCls}"><span class="pct-val" style="color:var(--border)">—</span></td>`;
+    }
+    if (!ok) return `<td class="pct-cell"><span class="pct-val">—</span></td>`;
 
     const idx = catIdx[day];
     if (idx === undefined) return `<td class="pct-cell pct-zero"><span class="pct-val">—</span></td>`;
@@ -1013,103 +1121,79 @@ function buildMonthlyRow(rowData, dataKey, categories) {
     const absent   = d.absent[idx]   || 0;
     const unmarked = d.unmarked[idx] || 0;
     const marked   = present + absent;
-    const total    = marked + unmarked;
 
-    // Unmarked day — attendance not taken
-    if (unmarked > 0 && marked === 0) {
-      return `<td class="pct-cell pct-unmarked"><span class="pct-val">—</span></td>`;
-    }
-
+    if (unmarked > 0 && marked === 0) return `<td class="pct-cell pct-unmarked"><span class="pct-val">—</span></td>`;
     if (marked === 0) return `<td class="pct-cell pct-zero"><span class="pct-val">0%</span></td>`;
 
     const pct   = Math.round((present / marked) * 100);
     const cls   = pct >= 80 ? 'pct-high' : pct >= 50 ? 'pct-mid' : 'pct-low';
     const color = pct >= 80 ? 'var(--accent2)' : pct >= 50 ? 'var(--warn)' : 'var(--danger)';
 
-    return `<td class="pct-cell ${cls}">
+    return `<td class="pct-cell ${cls}${extraCls}">
       <span class="pct-val">${pct}%</span>
-      <div class="pct-bar" style="height:${Math.max(2, Math.round(pct * 0.3))}px;background:${color}"></div>
+      <div class="pct-bar" style="height:${Math.max(2,Math.round(pct*0.3))}px;background:${color}"></div>
     </td>`;
   }).join('');
 
-  // Average % across all marked days for this school
+  // Average — only working days count
   let totalPct = 0, countedDays = 0;
   if (ok) {
     categories.forEach(day => {
+      if ((adminWS && adminWS.has(day)) || (adminHS && adminHS.has(day))) return; // skip non-working
       const idx = catIdx[day];
       if (idx === undefined) return;
-      const present  = d.present[idx]  || 0;
-      const absent   = d.absent[idx]   || 0;
-      const unmarked = d.unmarked[idx] || 0;
-      const marked   = present + absent;
-      if (marked === 0) return; // skip fully unmarked days
+      const present = d.present[idx] || 0, absent = d.absent[idx] || 0;
+      const marked  = present + absent;
+      if (marked === 0) return;
       totalPct += (present / marked) * 100;
       countedDays++;
     });
   }
   const avgPct  = countedDays > 0 ? Math.round(totalPct / countedDays) : null;
   const avgCls  = avgPct === null ? 'pct-zero' : avgPct >= 80 ? 'pct-high' : avgPct >= 50 ? 'pct-mid' : 'pct-low';
-  const avgCell = `<td class="month-total ${avgCls}">${avgPct !== null ? avgPct + '%' : '—'}</td>`;
 
   return `<tr>
-    <td class="school-name">${rowData.name || '—'}</td>
-    <td>${rowData.level || '—'}</td>
-    <td>${rowData.gender || '—'}</td>
+    <td class="school-name" style="position:sticky;left:0;background:var(--surface);z-index:1">${rowData.name || '—'}</td>
+    <td>${rowData.level || '—'}</td><td>${rowData.gender || '—'}</td>
     ${dayCells}
-    ${avgCell}
+    <td class="month-total ${avgCls}">${avgPct !== null ? avgPct + '%' : '—'}</td>
   </tr>`;
 }
 
-function renderMonthlyCards(rows, categories, day) {
+function renderMonthlyCards(rows, categories, day, adminWS, adminHS) {
   const n = rows.length;
+  const workingDays = categories.filter(d => !(adminWS && adminWS.has(d)) && !(adminHS && adminHS.has(d))).length;
   document.getElementById('mCSchools').textContent = n;
-  document.getElementById('mCDays').textContent    = categories.length;
+  document.getElementById('mCDays').textContent    = workingDays;
   document.getElementById('mCDaySub').textContent  = `up to day ${day}`;
 
-  // Avg student attendance % across all schools and all marked days
-  let sTotalPct = 0, sCount = 0;
-  let tTotalPct = 0, tCount = 0;
-  let schoolsWithGaps = 0;
-
+  let sTotalPct=0,sCount=0,tTotalPct=0,tCount=0,schoolsWithGaps=0;
   rows.forEach(r => {
-    const sd = r.studentData;
-    const td = r.teacherData;
+    const sd = r.studentData, td = r.teacherData;
     const catIdx = {};
-    if (sd && sd.categories) sd.categories.forEach((c, i) => catIdx[c] = i);
-
+    if (sd && sd.categories) sd.categories.forEach((c,i) => catIdx[c] = i);
     let sHasUnmarked = false;
     categories.forEach(day => {
+      if ((adminWS && adminWS.has(day)) || (adminHS && adminHS.has(day))) return;
       const idx = catIdx[day];
       if (idx === undefined) return;
-      if (sd) {
-        const p = sd.present[idx] || 0, a = sd.absent[idx] || 0, u = sd.unmarked[idx] || 0;
-        const m = p + a;
-        if (u > 0 && m === 0) sHasUnmarked = true;
-        else if (m > 0) { sTotalPct += (p / m) * 100; sCount++; }
-      }
-      if (td) {
-        const p = td.present[idx] || 0, a = td.absent[idx] || 0, u = td.unmarked[idx] || 0;
-        const m = p + a;
-        if (m > 0) { tTotalPct += (p / m) * 100; tCount++; }
-      }
+      if (sd) { const p=sd.present[idx]||0,a=sd.absent[idx]||0,u=sd.unmarked[idx]||0,m=p+a; if(u>0&&m===0)sHasUnmarked=true; else if(m>0){sTotalPct+=(p/m)*100;sCount++;} }
+      if (td) { const p=td.present[idx]||0,a=td.absent[idx]||0,u=td.unmarked[idx]||0,m=p+a; if(m>0){tTotalPct+=(p/m)*100;tCount++;} }
     });
     if (sHasUnmarked) schoolsWithGaps++;
   });
 
-  const sAvg = sCount > 0 ? Math.round(sTotalPct / sCount) : null;
-  const tAvg = tCount > 0 ? Math.round(tTotalPct / tCount) : null;
-
-  const sEl = document.getElementById('mCSPresent');
-  sEl.textContent = sAvg !== null ? sAvg + '%' : '—';
-  sEl.className   = `card-value ${sAvg === null ? '' : sAvg >= 80 ? 'green' : sAvg >= 50 ? 'blue' : 'red'}`;
-
+  const sAvg = sCount > 0 ? Math.round(sTotalPct/sCount) : null;
+  const tAvg = tCount > 0 ? Math.round(tTotalPct/tCount) : null;
+  const sEl  = document.getElementById('mCSPresent');
+  sEl.textContent = sAvg !== null ? sAvg+'%' : '—';
+  sEl.className   = `card-value ${sAvg===null?'':sAvg>=80?'green':sAvg>=50?'blue':'red'}`;
   const tEl = document.getElementById('mCTPresent');
-  tEl.textContent = tAvg !== null ? tAvg + '%' : '—';
-  tEl.className   = `card-value ${tAvg === null ? '' : tAvg >= 80 ? 'green' : tAvg >= 50 ? 'blue' : 'red'}`;
-
+  tEl.textContent = tAvg !== null ? tAvg+'%' : '—';
+  tEl.className   = `card-value ${tAvg===null?'':tAvg>=80?'green':tAvg>=50?'blue':'red'}`;
   const gEl = document.getElementById('mCUnmarked');
   gEl.textContent = schoolsWithGaps;
-  gEl.className   = `card-value ${schoolsWithGaps === 0 ? 'green' : 'red'}`;
+  gEl.className   = `card-value ${schoolsWithGaps===0?'green':'red'}`;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1122,28 +1206,12 @@ function resetDailyUI() {
   document.querySelectorAll('#cardsGrid .card').forEach(c => c.classList.remove('visible'));
   lastRows = [];
 }
-function setFetchingUI(on) {
-  document.getElementById('btnFetch').disabled    = on;
-  document.getElementById('selMarkaz').disabled   = on;
-}
-function showProgress(pct, fetched, msg) {
-  document.getElementById('progressWrap').classList.add('visible');
-  document.getElementById('progressText').textContent = msg;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('streamStatus').classList.add('visible');
-}
-function hideProgress()      { document.getElementById('progressWrap').classList.remove('visible'); }
-function hideStreamStatus()  { document.getElementById('streamStatus').classList.remove('visible'); }
-function setStreamMsg(msg)   {
-  document.getElementById('streamMsg').textContent = msg;
-  document.getElementById('streamStatus').classList.add('visible');
-}
-function showDailyError(msg) {
-  document.getElementById('errorMsg').textContent = msg;
-  document.getElementById('errorState').classList.add('visible');
-  document.getElementById('emptyState').classList.remove('visible');
-  hideProgress(); hideStreamStatus();
-}
+function setFetchingUI(on) { document.getElementById('btnFetch').disabled=on; document.getElementById('selMarkaz').disabled=on; }
+function showProgress(pct,f,msg) { document.getElementById('progressWrap').classList.add('visible'); document.getElementById('progressText').textContent=msg; document.getElementById('progressFill').style.width=pct+'%'; document.getElementById('streamStatus').classList.add('visible'); }
+function hideProgress() { document.getElementById('progressWrap').classList.remove('visible'); }
+function hideStreamStatus() { document.getElementById('streamStatus').classList.remove('visible'); }
+function setStreamMsg(msg) { document.getElementById('streamMsg').textContent=msg; document.getElementById('streamStatus').classList.add('visible'); }
+function showDailyError(msg) { document.getElementById('errorMsg').textContent=msg; document.getElementById('errorState').classList.add('visible'); document.getElementById('emptyState').classList.remove('visible'); hideProgress(); hideStreamStatus(); }
 
 // ── UI HELPERS — MONTHLY ─────────────────────────────────────
 function resetMonthlyUI() {
@@ -1154,28 +1222,12 @@ function resetMonthlyUI() {
   document.querySelectorAll('#mCardsGrid .card').forEach(c => c.classList.remove('visible'));
   mLastData = null;
 }
-function setMonthlyFetchingUI(on) {
-  document.getElementById('btnFetchMonthly').disabled = on;
-  document.getElementById('mSelMarkaz').disabled      = on;
-}
-function showMProgress(pct, fetched, msg) {
-  document.getElementById('mProgressWrap').classList.add('visible');
-  document.getElementById('mProgressText').textContent = msg;
-  document.getElementById('mProgressFill').style.width = pct + '%';
-  document.getElementById('mStreamStatus').classList.add('visible');
-}
-function hideMProgress()     { document.getElementById('mProgressWrap').classList.remove('visible'); }
+function setMonthlyFetchingUI(on) { document.getElementById('btnFetchMonthly').disabled=on; document.getElementById('mSelMarkaz').disabled=on; }
+function showMProgress(pct,f,msg) { document.getElementById('mProgressWrap').classList.add('visible'); document.getElementById('mProgressText').textContent=msg; document.getElementById('mProgressFill').style.width=pct+'%'; document.getElementById('mStreamStatus').classList.add('visible'); }
+function hideMProgress() { document.getElementById('mProgressWrap').classList.remove('visible'); }
 function hideMStreamStatus() { document.getElementById('mStreamStatus').classList.remove('visible'); }
-function setMStreamMsg(msg)  {
-  document.getElementById('mStreamMsg').textContent = msg;
-  document.getElementById('mStreamStatus').classList.add('visible');
-}
-function showMonthlyError(msg) {
-  document.getElementById('mErrorMsg').textContent = msg;
-  document.getElementById('mErrorState').classList.add('visible');
-  document.getElementById('mEmptyState').classList.remove('visible');
-  hideMProgress(); hideMStreamStatus();
-}
+function setMStreamMsg(msg) { document.getElementById('mStreamMsg').textContent=msg; document.getElementById('mStreamStatus').classList.add('visible'); }
+function showMonthlyError(msg) { document.getElementById('mErrorMsg').textContent=msg; document.getElementById('mErrorState').classList.add('visible'); document.getElementById('mEmptyState').classList.remove('visible'); hideMProgress(); hideMStreamStatus(); }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -1183,17 +1235,27 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 //  INIT
 // ════════════════════════════════════════════════════════════
 (async function init() {
-  try {
-    const resp = await fetch(CSV_URL);
-    const text = await resp.text();
-    allRows    = parseCSV(text);
+  // Load CSV and admin config in parallel
+  const [csvResult, _] = await Promise.allSettled([
+    fetch(CSV_URL).then(r => r.text()),
+    loadAdminConfig()
+  ]);
+
+  if (csvResult.status === 'fulfilled') {
+    allRows = parseCSV(csvResult.value);
     const districts = unique(allRows.map(r => r['District']));
     fillSelect(document.getElementById('selDistrict'),  districts, '— Select District —');
     fillSelect(document.getElementById('mSelDistrict'), districts, '— Select District —');
-  } catch(e) {
+  } else {
     showDailyError('Failed to load school list. Check CSV URL or network.');
     showMonthlyError('Failed to load school list. Check CSV URL or network.');
   }
+
+  // Set date
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-PK');
+
+  // Evaluate monthly tab access now that config is loaded
+  // (won't visually apply until user clicks the Monthly tab)
 })();
 </script>
 </body>
